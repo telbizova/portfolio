@@ -1,0 +1,42 @@
+---
+const nav = [
+  { href: '/#projects', label: 'Портфолио' },
+  { href: '/about', label: 'Обо мне' },
+  // TODO: положить обезличенное резюме в public/cv.pdf
+  { href: '/cv.pdf', label: 'CV' },
+];
+
+const path = Astro.url.pathname;
+---
+
+<header class="border-b border-line">
+  <div class="mx-auto flex max-w-page flex-wrap items-center justify-between gap-x-5 gap-y-3 px-4 py-3">
+    <div>
+      <a href="/" class="font-medium no-underline hover:text-accent">Валентина Тельбизова</a>
+      <p class="text-step--1 text-muted">Москва</p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+      <p class="inline-flex items-center gap-2 rounded-base border border-line px-2 py-1 text-step--1 text-muted">
+        <span class="size-2 rounded-base bg-accent" aria-hidden="true"></span>
+        Открыта к предложениям
+      </p>
+
+      <nav aria-label="Основная навигация">
+        <ul class="flex gap-4">
+          {nav.map(({ href, label }) => (
+            <li>
+              <a
+                href={href}
+                aria-current={path === href ? 'page' : undefined}
+                class="underline-offset-4 hover:underline aria-[current=page]:text-accent"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
