@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+
+/*
+  Tailwind видит только проектные токены: стандартные цвета, размеры
+  и отступы отключены, чтобы хардкод не проходил мимо tokens.css.
+*/
+@theme inline {
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+
+  --font-*: initial;
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+
+  --text-*: initial;
+  --text-step--1: var(--step--1);
+  --text-step-0: var(--step-0);
+  --text-step-1: var(--step-1);
+  --text-step-2: var(--step-2);
+  --text-step-3: var(--step-3);
+  --text-step-4: var(--step-4);
+  --text-step-5: var(--step-5);
+
+  --spacing: initial;
+  --spacing-0: 0;
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-7: var(--space-7);
+
+  --container-*: initial;
+  --container-page: var(--container);
+  --container-measure: var(--measure);
+
+  --radius-*: initial;
+  --radius-base: var(--radius);
+}
+
+@layer base {
+  /* База шкалы — 18px */
+  html {
+    font-size: 112.5%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-text);
+    font-size: var(--step-0);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
