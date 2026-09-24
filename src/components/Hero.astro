@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.jpeg';
+import ContactButtons from './ContactButtons.astro';
+---
+
+<section aria-labelledby="hero-title" class="flex flex-col items-center gap-6 px-4 pt-10 text-center">
+  <!--
+    Кадрирование как в макете: фото 101.6×135.5 внутри круга 120 на белой
+    подложке, сдвиг 9.2px слева (imageTransform слоя Photo)
+  -->
+  <div class="relative size-avatar shrink-0 overflow-hidden rounded-pill bg-surface">
+    <Image
+      src={portrait}
+      alt="Портрет Валентины Тельбизовой: тёмные волосы до плеч, серая рубашка"
+      widths={[102, 204]}
+      sizes="102px"
+      format="webp"
+      class="absolute top-[0.26%] left-[7.66%] h-auto w-[84.69%] max-w-none"
+    />
+  </div>
+
+  <div class="flex w-full max-w-page flex-col items-center gap-4">
+    <h1 id="hero-title" class="text-hero font-normal">
+      Привет, я Валентина!<br />
+      UX/UI-дизайнер с опытом в нагруженных системах для B2B и B2E
+    </h1>
+    <p class="max-w-lead text-lead text-balance text-fg/50">
+      Проектирую сложные веб-сервисы и админ-панели: от анализа задач до запуска и поддержки
+    </p>
+  </div>
+
+  <div id="hero-contacts">
+    <ContactButtons />
+  </div>
+</section>
+
+<!-- Плашка «Button-bar» из фрейма «Главная-скролл»: появляется, когда кнопки первого экрана ушли из вида -->
+<div
+  id="floating-contacts"
+  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 px-4 py-3 backdrop-blur-[5px]"
+  hidden
+>
+  <ContactButtons divider />
+</div>
+
+<script>
+  const anchor = document.getElementById('hero-contacts');
+  const floating = document.getElementById('floating-contacts');
+
+  if (anchor && floating) {
+    new IntersectionObserver(([entry]) => {
+      floating.hidden = entry.isIntersecting || entry.boundingClientRect.top > 0;
+    }).observe(anchor);
+  }
+</script>

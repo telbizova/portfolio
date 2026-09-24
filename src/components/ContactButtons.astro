@@ -1,0 +1,38 @@
+---
+interface Props {
+  // В плавающей плашке между кнопками — вертикальный разделитель
+  divider?: boolean;
+}
+
+const { divider = false } = Astro.props;
+
+// TODO: положить обезличенное резюме в public/cv.pdf
+const links = [
+  { href: '/cv.pdf', label: 'CV' },
+  { href: 'https://t.me/telbizova', label: 'Telegram' },
+];
+---
+
+<ul class:list={['flex items-center justify-center', divider ? 'gap-4' : 'gap-3']}>
+  {links.map(({ href, label }, i) => (
+    <>
+      {divider && i > 0 && <li class="h-6 w-px bg-line" aria-hidden="true" />}
+      <li>
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-1.5 rounded-pill bg-accent px-3.5 pt-2 pb-2.5 text-button font-medium text-surface hover:bg-fg"
+        >
+          {label}
+          <span class="flex size-4 items-center justify-center" aria-hidden="true">
+            <svg width="9" height="9" viewBox="0 0 9 9" fill="currentColor">
+              <path d="M9 7.6755L7.52742 7.68373L7.52742 2.54205L1.06947 9L0 7.93053L6.45795 1.47258L1.32038 1.47669L1.3245 0L9 6.90411e-07V7.6755Z" />
+            </svg>
+          </span>
+          <span class="sr-only">(откроется в новой вкладке)</span>
+        </a>
+      </li>
+    </>
+  ))}
+</ul>

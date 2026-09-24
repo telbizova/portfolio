@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+
+const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="projects" aria-labelledby="projects-title" class="scroll-mt-10">
+  <h2 id="projects-title" class="mb-8 text-center text-h2 font-normal">Проекты, над которыми работала</h2>
+
+  <ul class="grid gap-5 md:grid-cols-2">
+    {cases.map((entry) => (
+      <li class:list={[entry.data.size === 'wide' && 'md:col-span-2']}>
+        <ProjectCard entry={entry} />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+  // Карточка кликабельна целиком, но текст в ней можно выделить и скопировать:
+  // переход только по клику без выделения. С клавиатуры работает ссылка в заголовке.
+  document.querySelectorAll<HTMLElement>('[data-card-href]').forEach((card) => {
+    card.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) return;
+      if (window.getSelection()?.toString()) return;
+
+      const href = card.dataset.cardHref!;
+      if (event.metaKey || event.ctrlKey) window.open(href, '_blank');
+      else window.location.href = href;
+    });
+  });
+</script>
