@@ -3,6 +3,8 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CaseHeader from '../../components/case/CaseHeader.astro';
 import CaseToc from '../../components/case/CaseToc.astro';
+import Footer from '../../components/Footer.astro';
+import ScrollTopButton from '../../components/ScrollTopButton.astro';
 import CasePlaceholder from '../../components/case/CasePlaceholder.astro';
 import NextCaseBar from '../../components/case/NextCaseBar.astro';
 
@@ -28,7 +30,7 @@ const { entry, next } = Astro.props;
   <CaseToc />
 
   <main class="px-4">
-    <article class="mx-auto flex max-w-page flex-col gap-10 pt-17 pb-17">
+    <article class="mx-auto flex max-w-page flex-col gap-10 pt-17">
       <!-- TODO: даты и лид — заглушки из макета -->
       <header class="flex flex-col items-center gap-4 text-center">
         <h1 id="case-title" class="max-w-137 text-case-title font-normal" data-reveal>{entry.data.title}</h1>
@@ -42,5 +44,7 @@ const { entry, next } = Astro.props;
     </article>
   </main>
 
+  <Footer />
   <NextCaseBar href={`/cases/${next.id}`} />
+  <ScrollTopButton offset="case" />
 </Base>

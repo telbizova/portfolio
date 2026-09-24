@@ -1,26 +1,34 @@
 ---
-// Стрелка «arrow-narrow-up-right» из макета: вектор 9×9 в квадрате 16×16.
-// rotate — поворот по часовой: 45 → вправо, 225 → влево.
+// Стрелка «arrow-narrow-up-right» из макета: вектор в квадрате 16×16 (вектор 9×9)
+// или 18×18 (вектор 10.13×10.13, у крупных кнопок).
+// rotate — поворот по часовой: 45 → вправо, 225 → влево, 315 → вверх.
 // При наведении на ссылку-родителя с классом group/link стрелка сдвигается
 // на 2px по своему направлению.
 interface Props {
-  rotate?: 0 | 45 | 225;
+  rotate?: 0 | 45 | 225 | 315;
+  size?: 16 | 18;
 }
 
-const { rotate = 0 } = Astro.props;
+const { rotate = 0, size = 16 } = Astro.props;
+const vector = size === 18 ? 10.13 : 9;
 
 const nudge = {
   0: 'group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5',
   45: 'group-hover/link:translate-x-0.5',
   225: 'group-hover/link:-translate-x-0.5',
+  315: 'group-hover/link:-translate-y-0.5',
 }[rotate];
 ---
 
 <span
-  class:list={['flex size-4 shrink-0 items-center justify-center transition-transform duration-(--dur-micro) ease-(--ease-out)', nudge]}
+  class:list={[
+    'flex shrink-0 items-center justify-center transition-transform duration-(--dur-micro) ease-(--ease-out)',
+    size === 18 ? 'size-4.5' : 'size-4',
+    nudge,
+  ]}
   aria-hidden="true"
 >
-  <svg width="9" height="9" viewBox="0 0 9 9" fill="currentColor" style={rotate ? `rotate:${rotate}deg` : undefined}>
+  <svg width={vector} height={vector} viewBox="0 0 9 9" fill="currentColor" style={rotate ? `rotate:${rotate}deg` : undefined}>
     <path d="M9 7.6755L7.52742 7.68373L7.52742 2.54205L1.06947 9L0 7.93053L6.45795 1.47258L1.32038 1.47669L1.3245 0L9 6.90411e-07V7.6755Z" />
   </svg>
 </span>

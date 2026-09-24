@@ -12,8 +12,8 @@ import { caseSections } from './sections';
   <ol class="flex flex-col items-end" aria-hidden="true">
     {caseSections.map(({ id }) => (
       <li>
-        <a href={`#${id}`} tabindex="-1" data-toc-mark class="group/mark flex h-4.5 w-9 items-center justify-end">
-          <span class="h-0.5 w-5 rounded-hairline bg-fg/16 transition-[width,background-color] duration-(--dur-ui) ease-(--ease-out) group-data-[active]/mark:w-9 group-data-[active]/mark:bg-fg/80 [nav:hover_a:not([data-active])>&]:bg-fg/30 group-[:hover:not([data-active])]/mark:w-7" />
+        <a href={`#${id}`} tabindex="-1" data-toc-mark class="group/mark flex h-4.75 w-9 items-center justify-end">
+          <span class="h-0.75 w-5 rounded-hairline bg-fg/16 transition-[width,background-color] duration-(--dur-ui) ease-(--ease-out) group-data-[active]/mark:w-9 group-data-[active]/mark:bg-fg/80 [nav:hover_a:not([data-active])>&]:bg-fg/30 group-[:hover:not([data-active])]/mark:w-7" />
         </a>
       </li>
     ))}

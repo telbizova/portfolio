@@ -1,0 +1,42 @@
+---
+import Arrow from './Arrow.astro';
+
+interface Props {
+  // Отступ снизу по макету: на главной 36px, на странице кейса 32px
+  offset?: 'home' | 'case';
+}
+
+const { offset = 'home' } = Astro.props;
+---
+
+<!-- Кнопка «наверх» из скролл-фреймов: 36×36 слева внизу, появляется после прокрутки -->
+<button
+  id="scroll-top"
+  type="button"
+  aria-label="Наверх"
+  class:list={[
+    'group/link fixed left-8 z-10 hidden size-9 items-center justify-center rounded-square bg-accent pb-0.5 text-surface transition-[opacity,translate,background-color,scale] duration-(--dur-slide) ease-(--ease-spring) hover:bg-fg active:scale-97 not-data-[shown]:pointer-events-none not-data-[shown]:opacity-0 sm:flex',
+    offset === 'home'
+      ? 'bottom-9 not-data-[shown]:translate-y-[calc(100%+var(--spacing)*9)]'
+      : 'bottom-8 not-data-[shown]:translate-y-[calc(100%+var(--spacing)*8)]',
+  ]}
+  inert
+>
+  <Arrow rotate={315} />
+</button>
+
+<script>
+  const button = document.getElementById('scroll-top');
+
+  if (button) {
+    const update = () => {
+      const show = window.scrollY > window.innerHeight * 0.6;
+      button.toggleAttribute('data-shown', show);
+      button.inert = !show;
+    };
+
+    button.addEventListener('click', () => window.scrollTo({ top: 0 }));
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>

@@ -2,10 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Projects from '../components/Projects.astro';
+import Footer from '../components/Footer.astro';
+import ScrollTopButton from '../components/ScrollTopButton.astro';
 ---
 
 <Base title="Валентина Тельбизова — UX/UI-дизайнер">
-  <main class="pb-10">
+  <main>
     <Hero />
     <div class="mt-20 px-4">
       <div class="mx-auto max-w-page">
@@ -13,4 +15,6 @@ import Projects from '../components/Projects.astro';
       </div>
     </div>
   </main>
+  <Footer />
+  <ScrollTopButton />
 </Base>

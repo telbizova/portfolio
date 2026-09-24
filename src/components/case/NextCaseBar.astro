@@ -12,22 +12,39 @@ const { href } = Astro.props;
 <a
   id="next-case"
   href={href}
-  class="group/link fixed bottom-6 left-1/2 z-10 flex h-13.5 -translate-x-1/2 items-center gap-3 rounded-bar bg-surface/60 px-4.5 text-next font-medium whitespace-nowrap backdrop-blur-[8px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
+  class="group/link fixed bottom-6 left-1/2 z-10 flex h-13 -translate-x-1/2 items-center gap-3 rounded-bar-sm border border-bar-stroke/70 bg-surface/60 px-4 text-next font-medium whitespace-nowrap backdrop-blur-[8px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
   inert
 >
-  Следующий кейс
-  <Arrow rotate={45} />
+  <span class="pb-0.5">Следующий кейс</span>
+  <Arrow rotate={45} size={18} />
 </a>
 
 <script>
   const anchor = document.getElementById('case-title');
   const bar = document.getElementById('next-case');
 
+  const footer = document.getElementById('site-footer');
+
   if (anchor && bar) {
-    new IntersectionObserver(([entry]) => {
-      const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+    // Показываем, когда название кейса ушло вверх, и прячем у футера
+    let pastAnchor = false;
+    let nearFooter = false;
+    const render = () => {
+      const show = pastAnchor && !nearFooter;
       bar.toggleAttribute('data-shown', show);
       bar.inert = !show;
+    };
+
+    new IntersectionObserver(([entry]) => {
+      pastAnchor = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      render();
     }).observe(anchor);
+
+    if (footer) {
+      new IntersectionObserver(([entry]) => {
+        nearFooter = entry.isIntersecting;
+        render();
+      }).observe(footer);
+    }
   }
 </script>

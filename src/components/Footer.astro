@@ -1,0 +1,61 @@
+---
+const year = new Date().getFullYear();
+
+/*
+  Рукописные подчёркивания для ссылки на имя (viewBox 310×40, линия
+  растягивается по ширине текста). При каждом наведении рисуется другая.
+*/
+const strokes = [
+  // волна с нарастающей амплитудой
+  'M6 21C20 18 32 16 46 19C60 22 68 26 84 24C100 22 108 13 126 13C144 13 150 28 170 29C190 30 198 11 218 10C238 9 244 30 264 31C282 32 292 16 305 12',
+  // частая мелкая волнушка
+  'M5 20C11 14 17 13 23 18C29 23 35 25 42 20C49 15 55 12 62 17C69 22 76 26 84 21C92 16 98 13 106 18C114 23 122 25 130 20C138 15 145 13 153 18C161 23 169 25 177 20C185 15 192 13 200 18C208 23 216 25 224 20C232 15 239 13 247 18C255 23 263 25 271 20C279 15 290 14 305 17',
+  // уходит вверх и закручивается петелькой
+  'M5 30C28 27 42 18 62 18C82 18 88 29 110 28C132 27 140 15 162 14C182 13 190 24 206 25C222 26 232 19 244 15C258 10 272 11 271 19C270 27 254 26 257 18C261 9 284 9 305 11',
+  // ленивая, с двумя горбами
+  'M4 19C28 10 64 9 96 20C122 30 150 32 178 22C206 12 240 8 268 15C284 19 296 24 306 22',
+  // неровная, с разным шагом
+  'M5 23C16 15 26 14 36 20C48 27 58 27 70 19C80 12 88 12 98 18C112 26 130 29 146 21C158 15 164 11 176 15C190 20 198 28 214 26C230 24 236 14 250 14C262 14 268 23 280 24C292 25 300 19 305 16',
+  // волна с росчерком в конце
+  'M5 24C22 16 36 15 52 21C68 27 80 27 96 21C112 15 126 14 142 20C158 26 172 27 188 21C204 15 218 14 234 20C250 26 262 27 276 22C286 18 292 12 296 8C298 6 301 5 306 6',
+];
+---
+
+<!-- Компонент «Footer» из макета: 40px от контента, 40px до низа страницы -->
+<footer id="site-footer" class="mt-10 px-4 text-center">
+  <p class="text-footer text-fg/50">
+    © {year},{' '}
+    <a
+      href="https://t.me/telbizova"
+      target="_blank"
+      rel="noopener"
+      class="link-draw"
+      data-strokes={JSON.stringify(strokes)}
+    >
+      <span class="link-draw__label">Валентина Тельбизова</span>
+      <svg class="link-draw__svg" viewBox="0 0 310 40" preserveAspectRatio="none" aria-hidden="true">
+        <path pathLength="1" d={strokes[0]} />
+      </svg>
+      <span class="sr-only"> в Telegram (откроется в новой вкладке)</span>
+    </a>
+  </p>
+</footer>
+
+<script>
+  // На каждое новое наведение — другая линия, не такая же, как в прошлый раз
+  document.querySelectorAll<HTMLElement>('.link-draw[data-strokes]').forEach((link) => {
+    const strokes: string[] = JSON.parse(link.dataset.strokes!);
+    const path = link.querySelector('path');
+    let current = 0;
+
+    const next = () => {
+      if (!path) return;
+      const shift = 1 + Math.floor(Math.random() * (strokes.length - 1));
+      current = (current + shift) % strokes.length;
+      path.setAttribute('d', strokes[current]);
+    };
+
+    link.addEventListener('pointerenter', next);
+    link.addEventListener('focus', next);
+  });
+</script>

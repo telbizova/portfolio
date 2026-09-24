@@ -15,6 +15,7 @@
   --color-accent: var(--accent);
   --color-line: var(--line);
   --color-glass: var(--glass);
+  --color-bar-stroke: var(--bar-stroke);
 
   --font-*: initial;
   --font-display: var(--font-display);
@@ -42,9 +43,15 @@
   --text-button: var(--type-button);
   --text-button--line-height: var(--type-button-leading);
   --text-button--letter-spacing: var(--type-button-tracking);
+  --text-button-sm: var(--type-button-sm);
+  --text-button-sm--line-height: var(--type-button-sm-leading);
+  --text-button-sm--letter-spacing: var(--type-button-sm-tracking);
   --text-tag: var(--type-tag);
   --text-tag--line-height: var(--type-tag-leading);
   --text-tag--letter-spacing: var(--type-tag-tracking);
+  --text-footer: var(--type-footer);
+  --text-footer--line-height: var(--type-footer-leading);
+  --text-footer--letter-spacing: var(--type-footer-tracking);
   --text-case-title: var(--type-case-title);
   --text-case-title--line-height: var(--type-case-title-leading);
   --text-case-title--letter-spacing: var(--type-case-title-tracking);
@@ -83,6 +90,8 @@
   --radius-card: var(--radius);
   --radius-image: var(--radius-image);
   --radius-bar: var(--radius-bar);
+  --radius-bar-sm: var(--radius-bar-sm);
+  --radius-square: var(--radius-square);
   --radius-pill: var(--radius-pill);
   --radius-hairline: var(--radius-hairline);
 }
@@ -114,6 +123,60 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/*
+  Ссылка с рукописным подчёркиванием: по ховеру под текстом прорисовывается
+  волнистая линия маркером (stroke-dashoffset 1 → 0), каждый раз новая.
+  Разметка и набор линий — в Footer.astro.
+*/
+@layer components {
+  .link-draw {
+    position: relative;
+    display: inline-flex;
+    transition: color var(--dur-ui) var(--ease-out);
+  }
+
+  .link-draw__label {
+    position: relative;
+    z-index: 1;
+  }
+
+  .link-draw__svg {
+    position: absolute;
+    z-index: 0;
+    left: -0.08em;
+    bottom: -0.5em;
+    width: calc(100% + 0.16em);
+    height: 0.85em;
+    overflow: visible;
+    color: var(--wave);
+    pointer-events: none;
+  }
+
+  .link-draw__svg path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 8px;
+    stroke-linecap: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    opacity: 0;
+    transition:
+      stroke-dashoffset var(--dur-draw) var(--ease-draw),
+      opacity var(--dur-micro);
+  }
+
+  .link-draw:hover,
+  .link-draw:focus-visible {
+    color: var(--fg);
+  }
+
+  .link-draw:hover .link-draw__svg path,
+  .link-draw:focus-visible .link-draw__svg path {
+    stroke-dashoffset: 0;
+    opacity: 0.85;
   }
 }
 

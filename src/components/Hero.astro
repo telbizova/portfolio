@@ -38,21 +38,39 @@ import ContactButtons from './ContactButtons.astro';
 <!-- Плашка «Button-bar» из фрейма «Главная-скролл»: появляется, когда кнопки первого экрана ушли из вида -->
 <div
   id="floating-contacts"
-  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 px-4 py-3 backdrop-blur-[5px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
+  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 p-3 backdrop-blur-[5px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
   inert
 >
-  <ContactButtons divider />
+  <ContactButtons size="sm" divider />
 </div>
 
 <script>
   const anchor = document.getElementById('hero-contacts');
   const floating = document.getElementById('floating-contacts');
 
+  const footer = document.getElementById('site-footer');
+
   if (anchor && floating) {
-    new IntersectionObserver(([entry]) => {
-      const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+    // Показываем, когда кнопки первого экрана ушли вверх, и прячем у футера,
+    // чтобы плашка его не перекрывала
+    let pastAnchor = false;
+    let nearFooter = false;
+    const render = () => {
+      const show = pastAnchor && !nearFooter;
       floating.toggleAttribute('data-shown', show);
       floating.inert = !show;
+    };
+
+    new IntersectionObserver(([entry]) => {
+      pastAnchor = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      render();
     }).observe(anchor);
+
+    if (footer) {
+      new IntersectionObserver(([entry]) => {
+        nearFooter = entry.isIntersecting;
+        render();
+      }).observe(footer);
+    }
   }
 </script>

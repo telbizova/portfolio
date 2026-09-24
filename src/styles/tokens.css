@@ -10,6 +10,8 @@
   --accent: #7C7C7C;    /* заливка кнопок */
   --line: #CECECE;      /* разделитель в плашке */
   --glass: #979797;     /* заливка плашки, используется на 20% */
+  --bar-stroke: #E2E2E2; /* обводка плашки «Следующий кейс», на 70% */
+  --wave: #E5484D;      /* рукописное подчёркивание ссылки в футере */
 
   /* Типографика — Inter */
   --font-display: "Inter", system-ui, sans-serif;
@@ -21,8 +23,11 @@
   --type-h2: 1.5rem;        --type-h2-leading: 1;           --type-h2-tracking: -0.02em;     /* 24 */
   --type-title: 1.25rem;    --type-title-leading: 1;        --type-title-tracking: -0.02em;  /* 20 */
   --type-body: 1.0625rem;   --type-body-leading: 1.5rem;    --type-body-tracking: -0.01em;   /* 17/24 */
-  --type-button: 1rem;      --type-button-leading: 1;       --type-button-tracking: -0.02em; /* 16 */
+  --type-button: 1.0625rem; --type-button-leading: 1;       --type-button-tracking: -0.02em; /* 17, кнопки первого экрана */
+  --type-button-sm: 0.9375rem; --type-button-sm-leading: 1;  --type-button-sm-tracking: -0.02em; /* 15, кнопки в плашке и шапке кейса */
   --type-tag: 0.75rem;      --type-tag-leading: 1;          --type-tag-tracking: -0.02em;    /* 12 */
+
+  --type-footer: 0.875rem;  --type-footer-leading: 1.375rem; --type-footer-tracking: -0.01em;  /* 14/22 */
 
   /* Страница кейса */
   --type-case-title: 1.75rem; --type-case-title-leading: 1.75rem; --type-case-title-tracking: -0.03em; /* 28/28 */
@@ -32,7 +37,7 @@
   --type-meta: 0.875rem;    --type-meta-leading: 1rem;      --type-meta-tracking: -0.02em;   /* 14/16 */
   --type-caption: 0.875rem; --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */
   --type-nav: 0.875rem;     --type-nav-leading: 1;          --type-nav-tracking: -0.02em;    /* 14 */
-  --type-next: 0.9375rem;   --type-next-leading: 1;         --type-next-tracking: -0.02em;   /* 15 */
+  --type-next: 1.0625rem;   --type-next-leading: 1;         --type-next-tracking: -0.02em;   /* 17 */
 
   /* Отступы — шаг 2px (в макете 6, 10, 14 и т.д.), в Tailwind: p-1.5 = 6px */
   --space: 0.25rem;
@@ -51,6 +56,8 @@
   --dur-ui: 400ms;      /* индикатор разделов, меню */
   --dur-slide: 550ms;   /* выезд плашек снизу */
   --dur-card: 500ms;    /* плашки на карточках по ховеру */
+  --dur-draw: 420ms;    /* прорисовка подчёркивания */
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
   --dur-reveal: 600ms;  /* появление блоков */
   --reveal-shift: 12px;
 
@@ -58,6 +65,8 @@
   --radius: 28px;       /* карточки */
   --radius-image: 10px; /* скриншоты в карточках */
   --radius-bar: 16px;   /* плашка с кнопками */
+  --radius-bar-sm: 12px; /* плашка «Следующий кейс» */
+  --radius-square: 8px; /* квадратная кнопка «наверх» */
   --radius-pill: 999px; /* кнопки, портрет */
   --radius-hairline: 2px; /* штрихи индикатора прокрутки */
 }
