@@ -45,6 +45,30 @@
   --text-tag: var(--type-tag);
   --text-tag--line-height: var(--type-tag-leading);
   --text-tag--letter-spacing: var(--type-tag-tracking);
+  --text-case-title: var(--type-case-title);
+  --text-case-title--line-height: var(--type-case-title-leading);
+  --text-case-title--letter-spacing: var(--type-case-title-tracking);
+  --text-section: var(--type-section);
+  --text-section--line-height: var(--type-section-leading);
+  --text-section--letter-spacing: var(--type-section-tracking);
+  --text-prose: var(--type-prose);
+  --text-prose--line-height: var(--type-prose-leading);
+  --text-prose--letter-spacing: var(--type-prose-tracking);
+  --text-prose-sm: var(--type-prose-sm);
+  --text-prose-sm--line-height: var(--type-prose-sm-leading);
+  --text-prose-sm--letter-spacing: var(--type-prose-sm-tracking);
+  --text-meta: var(--type-meta);
+  --text-meta--line-height: var(--type-meta-leading);
+  --text-meta--letter-spacing: var(--type-meta-tracking);
+  --text-caption: var(--type-caption);
+  --text-caption--line-height: var(--type-caption-leading);
+  --text-caption--letter-spacing: var(--type-caption-tracking);
+  --text-nav: var(--type-nav);
+  --text-nav--line-height: var(--type-nav-leading);
+  --text-nav--letter-spacing: var(--type-nav-tracking);
+  --text-next: var(--type-next);
+  --text-next--line-height: var(--type-next-leading);
+  --text-next--letter-spacing: var(--type-next-tracking);
 
   --spacing: var(--space);
   --spacing-avatar: var(--avatar);
@@ -60,6 +84,7 @@
   --radius-image: var(--radius-image);
   --radius-bar: var(--radius-bar);
   --radius-pill: var(--radius-pill);
+  --radius-hairline: var(--radius-hairline);
 }
 
 @layer base {
@@ -73,6 +98,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   :focus-visible {
     outline: 2px solid var(--fg);
     outline-offset: 2px;
@@ -84,6 +113,34 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+    }
+  }
+}
+
+/*
+  Деликатное появление блоков при прокрутке. Класс .js ставится в <head>,
+  поэтому без JS всё видно сразу. Скрипт — в layouts/Base.astro.
+*/
+@layer components {
+  .js [data-reveal] {
+    opacity: 0;
+    translate: 0 var(--reveal-shift);
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      translate var(--dur-reveal) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js [data-reveal].is-visible {
+    opacity: 1;
+    translate: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      translate: none;
+      transition: none;
     }
   }
 }

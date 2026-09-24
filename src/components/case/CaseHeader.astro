@@ -1,0 +1,13 @@
+---
+import Arrow from '../Arrow.astro';
+import ContactButtons from '../ContactButtons.astro';
+---
+
+<!-- От 1280px шапка закреплена по краям экрана, как в макете; уже — идёт блоком над колонкой -->
+<header class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 px-4 pt-6 xl:fixed xl:inset-x-8 xl:top-6 xl:z-10 xl:px-0 xl:pt-0">
+  <a href="/" class="flex items-center gap-2 text-nav font-medium whitespace-nowrap text-accent hover:text-fg">
+    <Arrow rotate={225} />
+    Назад в портфолио
+  </a>
+  <ContactButtons />
+</header>

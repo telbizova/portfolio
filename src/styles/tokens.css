@@ -24,6 +24,16 @@
   --type-button: 1rem;      --type-button-leading: 1;       --type-button-tracking: -0.02em; /* 16 */
   --type-tag: 0.75rem;      --type-tag-leading: 1;          --type-tag-tracking: -0.02em;    /* 12 */
 
+  /* Страница кейса */
+  --type-case-title: 1.75rem; --type-case-title-leading: 1.75rem; --type-case-title-tracking: -0.03em; /* 28/28 */
+  --type-section: 1.5rem;   --type-section-leading: 1;      --type-section-tracking: -0.03em; /* 24 */
+  --type-prose: 1.0625rem;  --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
+  --type-prose-sm: 1rem;    --type-prose-sm-leading: 1.5rem; --type-prose-sm-tracking: -0.02em; /* 16/24 */
+  --type-meta: 0.875rem;    --type-meta-leading: 1rem;      --type-meta-tracking: -0.02em;   /* 14/16 */
+  --type-caption: 0.875rem; --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */
+  --type-nav: 0.875rem;     --type-nav-leading: 1;          --type-nav-tracking: -0.02em;    /* 14 */
+  --type-next: 0.9375rem;   --type-next-leading: 1;         --type-next-tracking: -0.02em;   /* 15 */
+
   /* Отступы — шаг 2px (в макете 6, 10, 14 и т.д.), в Tailwind: p-1.5 = 6px */
   --space: 0.25rem;
 
@@ -34,9 +44,16 @@
   --avatar: 7.5rem;     /* портрет, 120px */
   --measure: 68ch;
 
+  /* Движение — только прозрачность и небольшой сдвиг */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur-micro: 200ms;   /* штрихи, меню, плашки */
+  --dur-reveal: 600ms;  /* появление блоков */
+  --reveal-shift: 12px;
+
   /* Скругления */
   --radius: 28px;       /* карточки */
   --radius-image: 10px; /* скриншоты в карточках */
   --radius-bar: 16px;   /* плашка с кнопками */
   --radius-pill: 999px; /* кнопки, портрет */
+  --radius-hairline: 2px; /* штрихи индикатора прокрутки */
 }

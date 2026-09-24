@@ -1,0 +1,66 @@
+---
+/*
+  Разметка страницы кейса по фрейму «Страница проекта» с текстами-заглушками
+  из макета — одинаковая для всех кейсов, пока нет настоящих текстов.
+  Картинки — пустые карточки, как в макете.
+*/
+import { sectionTitle } from './sections';
+
+const audience = [
+  'Руководители и лица, принимающие решения. Заходят в систему редко и ненадолго. Им важно быстро понять проект и увидеть его на фоне альтернатив.',
+  'Аналитики. Работают с системой постоянно: изучают данные по проектам, сравнивают их между собой и готовят материалы для решений.',
+];
+---
+
+<div class="flex flex-col gap-10">
+  <section id="about" class="flex scroll-mt-24 flex-col gap-8">
+    <div class="flex flex-col gap-6 md:px-20">
+      <h2 class="text-section font-normal" data-reveal>{sectionTitle('about')}</h2>
+      <div class="text-prose [&>p+p]:mt-4.25" data-reveal>
+        <p>Строительство новой транспортной линии — решение на десятилетия и с огромными инвестициями. Чтобы его принять, нужно понимать, сколько людей будет пользоваться линией, какой эффект она даст регионам и чем она лучше альтернатив.</p>
+        <p>Модель развития транспортной сети — аналитическая система, которая собирает прогнозы по всем проектам новых линий в одном месте и помогает сравнивать их и выбирать приоритетные. Систему разрабатывали для крупной транспортной компании по ТЗ, поэтапно: функционал добавлялся частями и показывался заказчику на регулярных демо.</p>
+        <p>и тут про свою роль обязательно</p>
+      </div>
+    </div>
+    <figure class="flex flex-col gap-5" data-reveal>
+      <div class="aspect-[700/393] rounded-card bg-surface"></div>
+      <figcaption class="text-caption font-medium text-fg/40 md:px-20">
+        Подпись к картинке, быстро описывает что происходит на скринах, или дает понимание об отработке системы
+      </figcaption>
+    </figure>
+  </section>
+
+  {(['audience', 'problems'] as const).map((id) => (
+    <section id={id} class="flex scroll-mt-24 flex-col gap-5 md:px-20">
+      <h2 class="text-section font-medium" data-reveal>{sectionTitle(id)}</h2>
+      <ul class="list-disc pl-6.25 text-prose [&>li+li]:mt-4.25" data-reveal>
+        {audience.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+  ))}
+
+  <section id="solution" class="flex scroll-mt-24 flex-col gap-8">
+    <div class="flex flex-col gap-5 md:px-20">
+      <h2 class="text-section font-medium" data-reveal>{sectionTitle('solution')}</h2>
+      <div class="text-prose-sm [&>p+p]:mt-4" data-reveal>
+        {audience.map((item) => <p>{item}</p>)}
+      </div>
+    </div>
+    <figure class="flex flex-col gap-5">
+      <div class="aspect-[700/393] rounded-card bg-surface" data-reveal></div>
+      <div class="aspect-[700/393] rounded-card bg-surface" data-reveal></div>
+      <figcaption data-reveal class="text-caption font-medium text-fg/40 md:px-20">
+        Система развивалась по частям, поэтому каждый новый раздел должен был встраиваться в уже сделанное. Число проектов заранее неизвестно и будет расти, интерфейс должен это выдерживать. Методики приходили от аналитиков, и не все детали в них были определены на момент проектирования.
+      </figcaption>
+    </figure>
+  </section>
+
+  {(['results', 'reflection'] as const).map((id) => (
+    <section id={id} class="flex scroll-mt-24 flex-col gap-5 md:px-20">
+      <h2 class="text-section font-medium" data-reveal>{sectionTitle(id)}</h2>
+      <div class="text-prose [&>p+p]:mt-4.25" data-reveal>
+        {audience.map((item) => <p>{item}</p>)}
+      </div>
+    </section>
+  ))}
+</div>

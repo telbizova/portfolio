@@ -1,0 +1,46 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import CaseHeader from '../../components/case/CaseHeader.astro';
+import CaseToc from '../../components/case/CaseToc.astro';
+import CasePlaceholder from '../../components/case/CasePlaceholder.astro';
+import NextCaseBar from '../../components/case/NextCaseBar.astro';
+
+export async function getStaticPaths() {
+  const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
+
+  return cases.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, next: cases[(i + 1) % cases.length] },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'cases'>;
+  next: CollectionEntry<'cases'>;
+}
+
+const { entry, next } = Astro.props;
+---
+
+<Base title={`${entry.data.title} — Валентина Тельбизова`}>
+  <CaseHeader />
+  <CaseToc />
+
+  <main class="px-4">
+    <article class="mx-auto flex max-w-page flex-col gap-10 pt-17 pb-17">
+      <!-- TODO: даты и лид — заглушки из макета -->
+      <header class="flex flex-col items-center gap-4 text-center">
+        <h1 id="case-title" class="max-w-137 text-case-title font-normal" data-reveal>{entry.data.title}</h1>
+        <p class="text-meta font-medium text-fg/50" data-reveal style="--reveal-delay: 80ms">[апрель - сентябрь 2026]</p>
+        <p class="max-w-135 text-prose text-fg/50" data-reveal style="--reveal-delay: 160ms">
+          Аналитическая система для оценки и выбора проектов новых транспортных линий система для оценки и выбора проектов новых транспортных линий
+        </p>
+      </header>
+
+      <CasePlaceholder />
+    </article>
+  </main>
+
+  <NextCaseBar href={`/cases/${next.id}`} />
+</Base>

@@ -1,0 +1,95 @@
+---
+import { caseSections } from './sections';
+
+/*
+  Индикатор разделов справа: штрих на каждый раздел, активный длиннее и темнее.
+  По наведению (или фокусу с клавиатуры) слева раскрывается меню разделов
+  в духе Notion; клик плавно прокручивает к разделу.
+*/
+---
+
+<nav id="case-toc" aria-label="Разделы кейса" class="group fixed top-47.5 right-8 z-10 hidden xl:block">
+  <ol class="flex flex-col items-end" aria-hidden="true">
+    {caseSections.map(({ id }) => (
+      <li>
+        <a href={`#${id}`} tabindex="-1" data-toc-mark class="group/mark flex h-4.5 w-9 items-center justify-end">
+          <span class="h-0.5 w-5 rounded-hairline bg-fg/16 transition-[width,background-color] duration-(--dur-micro) ease-(--ease-out) group-data-[active]/mark:w-9 group-data-[active]/mark:bg-fg/80 group-[:hover:not([data-active])]/mark:w-7 group-[:hover:not([data-active])]/mark:bg-fg/40" />
+        </a>
+      </li>
+    ))}
+  </ol>
+
+  <div class="pointer-events-none absolute top-1/2 right-full translate-x-1 -translate-y-1/2 pr-4 opacity-0 transition-[opacity,translate] duration-(--dur-micro) ease-(--ease-out) group-focus-within:pointer-events-auto group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:translate-x-0 group-hover:opacity-100">
+    <ol class="flex flex-col rounded-bar bg-surface p-1.5 ring-1 ring-fg/8">
+      {caseSections.map(({ id, title }) => (
+        <li>
+          <a
+            href={`#${id}`}
+            data-toc-item
+            class="block rounded-image px-3 py-2 text-meta font-medium whitespace-nowrap text-fg/50 transition-colors duration-(--dur-micro) ease-(--ease-out) hover:bg-bg hover:text-fg data-[active]:text-fg"
+          >
+            {title}
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+
+<script>
+  import { caseSections } from './sections';
+
+  const sections = caseSections.map(({ id }) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+  const marks = document.querySelectorAll<HTMLElement>('[data-toc-mark]');
+  const items = document.querySelectorAll<HTMLElement>('[data-toc-item]');
+
+  // Раздел, выбранный в меню, держим активным, пока пользователь сам не прокрутит:
+  // короткие последние разделы не доезжают до линии активации
+  let pinned: number | null = null;
+
+  // Раздел активен, когда его заголовок выше линии активации. Обычно линия —
+  // на 40% экрана, а на последнем отрезке прокрутки она плавно уходит к низу
+  // экрана, чтобы короткие разделы в конце страницы тоже по очереди подсвечивались
+  const activationLine = () => {
+    const vh = window.innerHeight;
+    const max = document.documentElement.scrollHeight - vh;
+    const stretch = vh * 0.6;
+    const t = Math.min(1, Math.max(0, (window.scrollY - (max - stretch)) / stretch));
+    return vh * 0.4 + t * vh * 0.6;
+  };
+
+  const update = () => {
+    let active = 0;
+    if (pinned !== null) {
+      active = pinned;
+    } else {
+      const line = activationLine();
+      sections.forEach((section, i) => {
+        if (section.getBoundingClientRect().top <= line) active = i;
+      });
+    }
+
+    marks.forEach((mark, i) => mark.toggleAttribute('data-active', i === active));
+    items.forEach((item, i) => {
+      item.toggleAttribute('data-active', i === active);
+      if (i === active) item.setAttribute('aria-current', 'location');
+      else item.removeAttribute('aria-current');
+    });
+  };
+
+  [...marks, ...items].forEach((link, i) => {
+    link.addEventListener('click', () => {
+      pinned = i % sections.length;
+      update();
+    });
+  });
+
+  const unpin = () => {
+    pinned = null;
+  };
+  ['wheel', 'touchstart', 'keydown'].forEach((type) => window.addEventListener(type, unpin, { passive: true }));
+
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+</script>
