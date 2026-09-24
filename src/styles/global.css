@@ -3,65 +3,78 @@
 @import "./tokens.css";
 
 /*
-  Tailwind видит только проектные токены: стандартные цвета, размеры
-  и отступы отключены, чтобы хардкод не проходил мимо tokens.css.
+  Tailwind видит только проектные токены: стандартные цвета, шрифты,
+  размеры текста и скругления отключены, чтобы хардкод не проходил мимо
+  tokens.css. Отступы — стандартная числовая шкала Tailwind от --space.
 */
 @theme inline {
   --color-*: initial;
   --color-bg: var(--bg);
+  --color-surface: var(--surface);
   --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-glass: var(--glass);
 
   --font-*: initial;
   --font-display: var(--font-display);
   --font-text: var(--font-text);
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 
   --text-*: initial;
-  --text-step--1: var(--step--1);
-  --text-step-0: var(--step-0);
-  --text-step-1: var(--step-1);
-  --text-step-2: var(--step-2);
-  --text-step-3: var(--step-3);
-  --text-step-4: var(--step-4);
-  --text-step-5: var(--step-5);
+  --text-hero: var(--type-hero);
+  --text-hero--line-height: var(--type-hero-leading);
+  --text-hero--letter-spacing: var(--type-hero-tracking);
+  --text-lead: var(--type-lead);
+  --text-lead--line-height: var(--type-lead-leading);
+  --text-lead--letter-spacing: var(--type-lead-tracking);
+  --text-h2: var(--type-h2);
+  --text-h2--line-height: var(--type-h2-leading);
+  --text-h2--letter-spacing: var(--type-h2-tracking);
+  --text-title: var(--type-title);
+  --text-title--line-height: var(--type-title-leading);
+  --text-title--letter-spacing: var(--type-title-tracking);
+  --text-body: var(--type-body);
+  --text-body--line-height: var(--type-body-leading);
+  --text-body--letter-spacing: var(--type-body-tracking);
+  --text-button: var(--type-button);
+  --text-button--line-height: var(--type-button-leading);
+  --text-button--letter-spacing: var(--type-button-tracking);
+  --text-tag: var(--type-tag);
+  --text-tag--line-height: var(--type-tag-leading);
+  --text-tag--letter-spacing: var(--type-tag-tracking);
 
-  --spacing: initial;
-  --spacing-0: 0;
-  --spacing-1: var(--space-1);
-  --spacing-2: var(--space-2);
-  --spacing-3: var(--space-3);
-  --spacing-4: var(--space-4);
-  --spacing-5: var(--space-5);
-  --spacing-6: var(--space-6);
-  --spacing-7: var(--space-7);
+  --spacing: var(--space);
+  --spacing-avatar: var(--avatar);
 
   --container-*: initial;
   --container-page: var(--container);
+  --container-lead: var(--lead-width);
+  --container-card-text: var(--card-text);
   --container-measure: var(--measure);
 
   --radius-*: initial;
-  --radius-base: var(--radius);
+  --radius-card: var(--radius);
+  --radius-image: var(--radius-image);
+  --radius-bar: var(--radius-bar);
+  --radius-pill: var(--radius-pill);
 }
 
 @layer base {
-  /* База шкалы — 18px */
-  html {
-    font-size: 112.5%;
-  }
-
   body {
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-text);
-    font-size: var(--step-0);
+    font-size: var(--type-button);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--fg);
     outline-offset: 2px;
   }
 

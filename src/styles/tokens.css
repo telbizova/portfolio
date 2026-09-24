@@ -1,34 +1,42 @@
+/*
+  Значения сняты из макета Figma через Inspect (фреймы «Главная»,
+  «Главная-скролл»). Меняются только вслед за макетом.
+*/
 :root {
-  /* Цвет — заменить на финальную палитру */
-  --bg: #FBFAF8;
-  --fg: #16150F;
-  --muted: #6E6A60;
-  --line: #E4E0D8;
-  --accent: #2D4A3E;
+  /* Цвет */
+  --bg: #F0F0F0;        /* фон страницы */
+  --surface: #FFFFFF;   /* карточки, подложка портрета */
+  --fg: #1E1E1E;        /* текст; полупрозрачные оттенки — через /40, /50, /80 */
+  --accent: #7C7C7C;    /* заливка кнопок */
+  --line: #CECECE;      /* разделитель в плашке */
+  --glass: #979797;     /* заливка плашки, используется на 20% */
 
-  /* Типографика — заменить на выбранные шрифты */
-  --font-display: "Unbounded", system-ui, sans-serif;
-  --font-text: "Onest", system-ui, sans-serif;
+  /* Типографика — Inter */
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-text: "Inter", system-ui, sans-serif;
 
-  /* Шкала 1.25, база 18px */
-  --step--1: 0.889rem;
-  --step-0:  1rem;
-  --step-1:  1.25rem;
-  --step-2:  1.563rem;
-  --step-3:  1.953rem;
-  --step-4:  2.441rem;
-  --step-5:  3.815rem;
+  /* Размер / интерлиньяж / трекинг по ролям */
+  --type-hero: 2rem;        --type-hero-leading: 2.375rem;  --type-hero-tracking: -0.04em;   /* 32/38 */
+  --type-lead: 1.125rem;    --type-lead-leading: 1.625rem;  --type-lead-tracking: -0.01em;   /* 18/26 */
+  --type-h2: 1.5rem;        --type-h2-leading: 1;           --type-h2-tracking: -0.02em;     /* 24 */
+  --type-title: 1.25rem;    --type-title-leading: 1;        --type-title-tracking: -0.02em;  /* 20 */
+  --type-body: 1.0625rem;   --type-body-leading: 1.5rem;    --type-body-tracking: -0.01em;   /* 17/24 */
+  --type-button: 1rem;      --type-button-leading: 1;       --type-button-tracking: -0.02em; /* 16 */
+  --type-tag: 0.75rem;      --type-tag-leading: 1;          --type-tag-tracking: -0.02em;    /* 12 */
 
-  /* Ритм 4px */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 1rem;
-  --space-4: 1.5rem;
-  --space-5: 2.5rem;
-  --space-6: 4rem;
-  --space-7: 6rem;
+  /* Отступы — шаг 2px (в макете 6, 10, 14 и т.д.), в Tailwind: p-1.5 = 6px */
+  --space: 0.25rem;
 
-  --container: 1200px;
+  /* Размеры */
+  --container: 700px;   /* колонка контента */
+  --lead-width: 476px;  /* подзаголовок на первом экране */
+  --card-text: 396px;   /* текстовый блок широкой карточки */
+  --avatar: 7.5rem;     /* портрет, 120px */
   --measure: 68ch;
-  --radius: 4px;
+
+  /* Скругления */
+  --radius: 28px;       /* карточки */
+  --radius-image: 10px; /* скриншоты в карточках */
+  --radius-bar: 16px;   /* плашка с кнопками */
+  --radius-pill: 999px; /* кнопки, портрет */
 }
