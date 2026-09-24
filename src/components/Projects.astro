@@ -6,11 +6,11 @@ const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.dat
 ---
 
 <section id="projects" aria-labelledby="projects-title" class="scroll-mt-10">
-  <h2 id="projects-title" class="mb-8 text-center text-h2 font-normal">Проекты, над которыми работала</h2>
+  <h2 id="projects-title" data-reveal class="mb-8 text-center text-h2 font-normal">Проекты, над которыми работала</h2>
 
   <ul class="grid gap-5 md:grid-cols-2">
     {cases.map((entry) => (
-      <li class:list={[entry.data.size === 'wide' && 'md:col-span-2']}>
+      <li class:list={[entry.data.size === 'wide' && 'md:col-span-2']} data-reveal>
         <ProjectCard entry={entry} />
       </li>
     ))}
