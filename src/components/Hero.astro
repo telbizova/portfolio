@@ -38,7 +38,7 @@ import ContactButtons from './ContactButtons.astro';
 <!-- Плашка «Button-bar» из фрейма «Главная-скролл»: появляется, когда кнопки первого экрана ушли из вида -->
 <div
   id="floating-contacts"
-  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 px-4 py-3 backdrop-blur-[5px] transition-[opacity,translate] duration-(--dur-micro) ease-(--ease-out) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-2 not-data-[shown]:opacity-0"
+  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 px-4 py-3 backdrop-blur-[5px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
   inert
 >
   <ContactButtons divider />

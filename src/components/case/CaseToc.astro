@@ -13,13 +13,13 @@ import { caseSections } from './sections';
     {caseSections.map(({ id }) => (
       <li>
         <a href={`#${id}`} tabindex="-1" data-toc-mark class="group/mark flex h-4.5 w-9 items-center justify-end">
-          <span class="h-0.5 w-5 rounded-hairline bg-fg/16 transition-[width,background-color] duration-(--dur-micro) ease-(--ease-out) group-data-[active]/mark:w-9 group-data-[active]/mark:bg-fg/80 group-[:hover:not([data-active])]/mark:w-7 group-[:hover:not([data-active])]/mark:bg-fg/40" />
+          <span class="h-0.5 w-5 rounded-hairline bg-fg/16 transition-[width,background-color] duration-(--dur-ui) ease-(--ease-out) group-data-[active]/mark:w-9 group-data-[active]/mark:bg-fg/80 [nav:hover_a:not([data-active])>&]:bg-fg/30 group-[:hover:not([data-active])]/mark:w-7" />
         </a>
       </li>
     ))}
   </ol>
 
-  <div class="pointer-events-none absolute top-1/2 right-full translate-x-1 -translate-y-1/2 pr-4 opacity-0 transition-[opacity,translate] duration-(--dur-micro) ease-(--ease-out) group-focus-within:pointer-events-auto group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:translate-x-0 group-hover:opacity-100">
+  <div class="pointer-events-none absolute top-1/2 right-full origin-right translate-x-2 -translate-y-1/2 scale-98 pr-4 opacity-0 transition-[opacity,translate,scale] duration-(--dur-ui) ease-(--ease-out) group-focus-within:scale-100 group-hover:scale-100 group-focus-within:pointer-events-auto group-focus-within:translate-x-0 group-focus-within:opacity-100 group-hover:pointer-events-auto group-hover:translate-x-0 group-hover:opacity-100">
     <ol class="flex flex-col rounded-bar bg-surface p-1.5 ring-1 ring-fg/8">
       {caseSections.map(({ id, title }) => (
         <li>

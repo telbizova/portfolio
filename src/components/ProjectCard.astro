@@ -18,11 +18,14 @@ const wide = data.size === 'wide';
 const stage = wide ? { top: 180, width: 700, height: 260 } : { top: 212, width: 340, height: 228 };
 const cover = wide ? { x: 255, y: 190, w: 536 } : { x: 28, y: 212, w: 434 };
 
+// По ховеру плашки «разъезжаются веером»: наклон усиливается на 3° в ту же сторону
+const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
+
 const place = ({ x, y, w }: { x: number; y: number; w: number }) =>
   `left:${(x / stage.width) * 100}%;top:${((y - stage.top) / stage.height) * 100}%;width:${(w / stage.width) * 100}%`;
 ---
 
-<article data-card-href={`/cases/${id}`} class="relative flex cursor-pointer h-full flex-col overflow-hidden rounded-card bg-surface outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg">
+<article data-card-href={`/cases/${id}`} class="group/card relative flex cursor-pointer h-full flex-col overflow-hidden rounded-card bg-surface outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg">
   <div class="px-7 pt-7">
     <div class:list={['flex flex-col gap-5', wide && 'md:max-w-card-text']}>
       <p class:list={['flex flex-wrap items-center gap-1.5 text-tag font-semibold', wide ? 'text-fg/40' : 'text-fg/50']}>
@@ -55,17 +58,17 @@ const place = ({ x, y, w }: { x: number; y: number; w: number }) =>
       alt={data.coverAlt}
       widths={[640, 1072, 1600]}
       sizes={wide ? '(min-width: 768px) 536px, 77vw' : '(min-width: 768px) 434px, 128vw'}
-      class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12"
+      class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12 transition-[translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-1.5"
       style={place(cover)}
     />
-    {data.layers.map((layer) => (
+    {data.layers.map((layer, i) => (
       <Image
         src={layer.src}
         alt=""
         widths={[220, 440]}
         sizes="(min-width: 768px) 220px, 31vw"
-        class="absolute h-auto max-w-none origin-top-left"
-        style={`${place(layer)};rotate:${layer.rotate}deg`}
+        class="absolute h-auto max-w-none origin-top-left rotate-(--r) transition-[rotate,translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-2 group-hover/card:rotate-(--r-hover)"
+        style={`${place(layer)};--r:${layer.rotate}deg;--r-hover:${fanOut(layer.rotate)}deg;transition-delay:${i * 40}ms`}
       />
     ))}
   </div>
