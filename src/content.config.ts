@@ -9,8 +9,8 @@ const cases = defineCollection({
       description: z.string(),
       tags: z.array(z.string()),
       nda: z.boolean().default(false),
-      // wide — карточка на всю колонку, half — две в ряд
-      size: z.enum(['wide', 'half']),
+      // Компания из src/data/companies.ts — группа на главной
+      company: z.enum(['root-code', 'black-mesa']),
       order: z.number(),
       cover: image(),
       coverAlt: z.string(),

@@ -1,21 +1,41 @@
 ---
 import { getCollection } from 'astro:content';
+import { companies } from '../data/companies';
+import CompanyIcon from './CompanyIcon.astro';
 import ProjectCard from './ProjectCard.astro';
 
 const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
+
+// Проекты сгруппированы по компаниям: над группой — компания и период работы
+const groups = companies
+  .map((company) => ({ company, cases: cases.filter((entry) => entry.data.company === company.id) }))
+  .filter((group) => group.cases.length);
 ---
 
-<section id="projects" aria-labelledby="projects-title" class="scroll-mt-10">
-  <h2 id="projects-title" data-reveal class="mb-8 text-center text-h2 font-normal">Проекты, над которыми работала</h2>
+<div id="projects" class="flex scroll-mt-10 flex-col gap-10">
+  {groups.map(({ company, cases }) => (
+    <section aria-labelledby={`company-${company.id}`} class="flex flex-col gap-5">
+      <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 px-5 md:gap-x-3 md:px-7" data-reveal>
+        <h2 id={`company-${company.id}`} class="flex items-center gap-2 text-meta font-medium text-company">
+          <CompanyIcon />
+          {company.name}
+        </h2>
+        <p class="text-meta text-muted/60">
+          <span class="md:hidden">{company.periodShort}</span>
+          <span class="hidden md:inline">{company.period}</span>
+        </p>
+      </div>
 
-  <ul class="grid gap-5 md:grid-cols-2">
-    {cases.map((entry) => (
-      <li class:list={[entry.data.size === 'wide' && 'md:col-span-2']} data-reveal>
-        <ProjectCard entry={entry} />
-      </li>
-    ))}
-  </ul>
-</section>
+      <ul class="flex flex-col gap-5">
+        {cases.map((entry) => (
+          <li data-reveal>
+            <ProjectCard entry={entry} />
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</div>
 
 <script>
   // Карточка кликабельна целиком, но текст в ней можно выделить и скопировать:

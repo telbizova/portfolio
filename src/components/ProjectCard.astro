@@ -7,57 +7,52 @@ interface Props {
 }
 
 const { id, data } = Astro.props.entry;
-const wide = data.size === 'wide';
 
 /*
-  Геометрия из макета (карточка 700×440 или 340×440). Картинки лежат в
-  «сцене» под текстом: её ширина = ширине карточки, высота — до низа
-  карточки. Координаты переводятся в проценты сцены, чтобы коллаж
-  масштабировался на узких экранах и совпадал с макетом на десктопе.
+  Геометрия из макета (карточка 700×440). Картинки лежат в «сцене» от
+  y=180 до низа карточки; координаты слоёв переводятся в проценты сцены,
+  чтобы коллаж масштабировался на узких экранах и совпадал с макетом на десктопе.
 */
-const stage = wide ? { top: 180, width: 700, height: 260 } : { top: 212, width: 340, height: 228 };
-const cover = wide ? { x: 255, y: 190, w: 536 } : { x: 28, y: 212, w: 434 };
-
-// По ховеру плашки «разъезжаются веером»: наклон усиливается на 3° в ту же сторону
-const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
+const stage = { top: 180, width: 700, height: 260 };
+const cover = { x: 255, y: 189, w: 536 };
 
 const place = ({ x, y, w }: { x: number; y: number; w: number }) =>
   `left:${(x / stage.width) * 100}%;top:${((y - stage.top) / stage.height) * 100}%;width:${(w / stage.width) * 100}%`;
+
+// По ховеру плашки «разъезжаются веером»: наклон усиливается на 3° в ту же сторону
+const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
 ---
 
-<article data-card-href={`/cases/${id}`} class="group/card relative flex cursor-pointer h-full flex-col overflow-hidden rounded-card bg-surface outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg">
-  <div class="px-7 pt-7">
-    <div class:list={['flex flex-col gap-5', wide && 'md:max-w-card-text']}>
-      <p class:list={['flex flex-wrap items-center gap-1.5 text-tag font-semibold', wide ? 'text-fg/40' : 'text-fg/50']}>
-        {data.tags.map((tag, i) => (
-          <>
-            {i > 0 && <span class="size-0.75 rotate-45 bg-current" aria-hidden="true" />}
-            <span>{tag}</span>
-          </>
-        ))}
-        {data.nda && (
-          <>
-            <span class="size-0.75 rotate-45 bg-current" aria-hidden="true" />
-            <span class="text-fg/80">NDA</span>
-          </>
-        )}
-      </p>
-      <h3 class="text-title font-normal">
-        <a href={`/cases/${id}`} class="outline-none">{data.title}</a>
-      </h3>
-      <p class="text-body text-fg/80">{data.description}</p>
-    </div>
+<article
+  data-card-href={`/cases/${id}`}
+  class="group/card relative flex cursor-pointer flex-col overflow-hidden rounded-card-sm bg-surface md:rounded-card outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg md:h-110"
+>
+  <!-- На телефоне у текста одна минимальная высота (2 строки названия + 4 строки описания), чтобы карточки были одной высоты -->
+  <div class="flex min-h-58 flex-col gap-5 px-5 pt-5 md:min-h-0 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:px-7 md:pt-7">
+    <p class="flex flex-wrap items-center gap-2 text-tag font-semibold text-fg/30">
+      {data.tags.map((tag, i) => (
+        <>
+          {i > 0 && <span class="size-1 rotate-45 bg-current" aria-hidden="true" />}
+          <span>{tag}</span>
+        </>
+      ))}
+    </p>
+    <h3 class="text-title-sm font-normal md:text-title">
+      <a href={`/cases/${id}`} class="outline-none">{data.title}</a>
+    </h3>
+    <p class="text-body text-fg/60">{data.description}</p>
   </div>
 
+  <!-- Коллаж обрезается правым и нижним краем карточки -->
   <div
-    class:list={['relative shrink-0', wide ? 'mt-8' : 'mt-10']}
+    class="relative mt-6 shrink-0 md:absolute md:inset-x-0 md:top-45 md:bottom-0 md:mt-0"
     style={`aspect-ratio:${stage.width}/${stage.height}`}
   >
     <Image
       src={data.cover}
       alt={data.coverAlt}
       widths={[640, 1072, 1600]}
-      sizes={wide ? '(min-width: 768px) 536px, 77vw' : '(min-width: 768px) 434px, 128vw'}
+      sizes="(min-width: 768px) 536px, 77vw"
       class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12 transition-[translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-1.5"
       style={place(cover)}
     />

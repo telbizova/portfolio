@@ -4,7 +4,7 @@ import portrait from '../assets/portrait.jpeg';
 import ContactButtons from './ContactButtons.astro';
 ---
 
-<section aria-labelledby="hero-title" class="flex flex-col items-center gap-6 px-4 pt-10 text-center">
+<section aria-labelledby="hero-title" class="flex flex-col items-center gap-7 px-4 pt-6 text-center md:pt-12.5">
   <!--
     Кадрирование как в макете: фото 101.6×135.5 внутри круга 120 на белой
     подложке, сдвиг 9.2px слева (imageTransform слоя Photo)
@@ -20,13 +20,14 @@ import ContactButtons from './ContactButtons.astro';
     />
   </div>
 
-  <div class="flex w-full max-w-page flex-col items-center gap-4" data-reveal style="--reveal-delay: 80ms">
-    <h1 id="hero-title" class="text-hero font-normal">
+  <div class="flex w-full max-w-page flex-col items-center gap-6" data-reveal style="--reveal-delay: 80ms">
+    <h1 id="hero-title" class="text-hero-sm font-normal md:text-hero">
       Привет, я Валентина!<br />
-      UX/UI-дизайнер с опытом в нагруженных системах для B2B и B2E
+      UX/UI-дизайнер нагруженных систем<br />
+      для B2B/B2E
     </h1>
-    <p class="max-w-lead text-lead text-balance text-fg/50">
-      Проектирую сложные веб-сервисы и админ-панели: от анализа задач до запуска и поддержки
+    <p class="max-w-lead text-body text-fg/50 md:text-lead">
+      Аналитические системы, дашборды, конструкторы, внутренние инструменты. 4+ года делаю так, чтобы в плотных данных было легко ориентироваться
     </p>
   </div>
 
@@ -38,7 +39,7 @@ import ContactButtons from './ContactButtons.astro';
 <!-- Плашка «Button-bar» из фрейма «Главная-скролл»: появляется, когда кнопки первого экрана ушли из вида -->
 <div
   id="floating-contacts"
-  class="fixed bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-bar bg-glass/20 p-3 backdrop-blur-[5px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*6)] not-data-[shown]:opacity-0"
+  class="fixed bottom-5 left-1/2 z-10 -translate-x-1/2 rounded-bar border border-bar-stroke/70 bg-glass/20 p-3 backdrop-blur-[8px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*5)] not-data-[shown]:opacity-0"
   inert
 >
   <ContactButtons size="sm" divider />
