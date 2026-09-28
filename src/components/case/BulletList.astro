@@ -1,0 +1,22 @@
+---
+// Список с ромбиками из макета: маркер 5×5 под 45° в колонке 16px, у пункта — название и описание
+interface Props {
+  items: { title: string; text: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="flex flex-col gap-4" data-reveal>
+  {items.map(({ title, text }) => (
+    <li class="flex gap-2">
+      <span class="flex h-6.75 w-4 shrink-0 items-center justify-center" aria-hidden="true">
+        <span class="size-1.25 rotate-45 bg-fg" />
+      </span>
+      <div class="flex flex-col gap-1">
+        <p class="font-medium">{title}</p>
+        <p>{text}</p>
+      </div>
+    </li>
+  ))}
+</ul>

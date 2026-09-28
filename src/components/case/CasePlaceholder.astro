@@ -1,66 +1,145 @@
 ---
 /*
-  Разметка страницы кейса по фрейму «Страница проекта» с текстами-заглушками
-  из макета — одинаковая для всех кейсов, пока нет настоящих текстов.
+  Разметка страницы кейса по фрейму «Страница проекта» с текстами из макета —
+  одинаковая для всех кейсов, пока нет настоящих текстов.
   Картинки — пустые карточки, как в макете.
 */
+import BulletList from './BulletList.astro';
+import CaseFigure from './CaseFigure.astro';
 import { sectionTitle } from './sections';
 
+const heading = 'text-section font-medium';
+const prose = 'text-prose [&>p+p]:mt-paragraph-sm md:[&>p+p]:mt-paragraph';
+
 const audience = [
-  'Руководители и лица, принимающие решения. Заходят в систему редко и ненадолго. Им важно быстро понять проект и увидеть его на фоне альтернатив.',
-  'Аналитики. Работают с системой постоянно: изучают данные по проектам, сравнивают их между собой и готовят материалы для решений.',
+  { title: 'Эксперт', text: 'меняет входные данные, настраивает параметры расчёта, смотрит результат и выгружает его для обоснования.' },
+  { title: 'Технолог', text: 'ведёт справочники и нормативную информацию.' },
+  { title: 'Администратор', text: 'управляет доступами.' },
 ];
+
+const problems = [
+  {
+    title: 'Прогноз нельзя проверить на прочность',
+    text: 'Решение о строительстве линии опирается на прогноз пассажиропотока — самое неустойчивое число в модели. От него по формулам тянутся инвестиции, вклад в ВВП, потребный парк, коэффициент эффективности. Чтобы посмотреть, устоят ли выводы при другом прогнозе, нужно было пересчитывать всё заново и руками.',
+  },
+  {
+    title: 'Изменения теряются',
+    text: 'Один параметр тянет за собой показатели сразу в нескольких местах. Найти, что именно пересчиталось, можно было только перебирая всё подряд.',
+  },
+  {
+    title: 'Отбор проектов считается вручную',
+    text: 'Методика двухэтапная: семь критериев, четыре группы, веса, нормирование. Пересобрать расчёт при каждом изменении состава проектов — отдельная работа.',
+  },
+];
+
+const iterationCaption =
+  'Это первая итерация. Часть сценариев осталась непокрытой, поиска в списке нет. Обсудили с аналитиками и вынесли в следующую итерацию.';
 ---
 
-<div class="flex flex-col gap-10">
-  <section id="about" class="flex scroll-mt-24 flex-col gap-8">
-    <div class="flex flex-col gap-6 md:px-20">
-      <h2 class="text-section font-normal" data-reveal>{sectionTitle('about')}</h2>
-      <div class="text-prose [&>p+p]:mt-4.25" data-reveal>
-        <p>Строительство новой транспортной линии — решение на десятилетия и с огромными инвестициями. Чтобы его принять, нужно понимать, сколько людей будет пользоваться линией, какой эффект она даст регионам и чем она лучше альтернатив.</p>
-        <p>Модель развития транспортной сети — аналитическая система, которая собирает прогнозы по всем проектам новых линий в одном месте и помогает сравнивать их и выбирать приоритетные. Систему разрабатывали для крупной транспортной компании по ТЗ, поэтапно: функционал добавлялся частями и показывался заказчику на регулярных демо.</p>
-        <p>и тут про свою роль обязательно</p>
-      </div>
+<div class="flex flex-col gap-17">
+  <div class="flex flex-col gap-8">
+    <CaseFigure caption="Подпись к картинке, быстро описывает что происходит на скринах, или дает понимание об отработке системы" />
+
+    <section id="about" class="flex scroll-mt-24 flex-col gap-7 md:px-20">
+      <h2 class={heading} data-reveal>{sectionTitle('about')}</h2>
+      <dl class="grid gap-7 text-prose" data-reveal>
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div class="flex flex-col gap-3">
+            <dt class="text-label font-semibold text-fg/40 uppercase">Моя Роль</dt>
+            <dd>UX/UI-дизайнер</dd>
+          </div>
+          <div class="flex flex-col gap-3">
+            <dt class="text-label font-semibold text-fg/40 uppercase">Таймфрейм</dt>
+            <dd>май — сентябрь 2026</dd>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <dt class="text-label font-semibold text-fg/40 uppercase">Команда</dt>
+          <dd>арт-директор, дизайн-лид, руководитель проекта, аналитики, фронтенд, бэкенд, тестирование</dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+
+  <section id="context" class="flex scroll-mt-24 flex-col gap-6 md:px-20">
+    <h2 class={heading} data-reveal>{sectionTitle('context')}</h2>
+    <div class={prose} data-reveal>
+      <p>Система оценивает проекты новых скоростных железнодорожных линий. Она считает, сколько людей поедет по направлению, во сколько обойдётся строительство, как это скажется на существующей сети и какой эффект даст экономике регионов. Дальше на основе этих расчётов решают, какие направления строить в первую очередь, а какие отложить.</p>
+      <p>Внутри это несколько разделов: карточки проектов с прогнозными показателями, сводная таблица по всем направлениям, конструктор расчётных сценариев и ранжирование проектов по методике отбора.</p>
     </div>
-    <figure class="flex flex-col gap-5" data-reveal>
-      <div class="aspect-[700/393] rounded-card bg-surface"></div>
-      <figcaption class="text-caption font-medium text-fg/40 md:px-20">
-        Подпись к картинке, быстро описывает что происходит на скринах, или дает понимание об отработке системы
-      </figcaption>
-    </figure>
   </section>
 
-  {(['audience', 'problems'] as const).map((id) => (
-    <section id={id} class="flex scroll-mt-24 flex-col gap-5 md:px-20">
-      <h2 class="text-section font-medium" data-reveal>{sectionTitle(id)}</h2>
-      <ul class="list-disc pl-6.25 text-prose [&>li+li]:mt-4.25" data-reveal>
-        {audience.map((item) => <li>{item}</li>)}
-      </ul>
-    </section>
-  ))}
+  <section id="audience" class="flex scroll-mt-24 flex-col gap-6 text-prose md:px-20">
+    <h2 class={heading} data-reveal>{sectionTitle('audience')}</h2>
+    <BulletList items={audience} />
+  </section>
+
+  <section id="problems" class="flex scroll-mt-24 flex-col gap-6 text-prose md:px-20">
+    <h2 class={heading} data-reveal>{sectionTitle('problems')}</h2>
+    <p data-reveal>До системы все расчёты вели во внутренней программе вроде Excel. Оттуда три проблемы, ради которых её и заказывали.</p>
+    <BulletList items={problems} />
+  </section>
+
+  <section id="task" class="flex scroll-mt-24 flex-col gap-6 md:px-20">
+    <h2 class={heading} data-reveal>{sectionTitle('task')}</h2>
+    <p class="text-prose" data-reveal>Спроектировать новый функционал системы и параллельно пересобрать её на новый визуал.</p>
+  </section>
+
+  <section id="process" class="flex scroll-mt-24 flex-col gap-6 md:px-20">
+    <h2 class={heading} data-reveal>{sectionTitle('process')}</h2>
+    <div class={prose} data-reveal>
+      <p>Область отраслевая, поэтому начала с документации, стендов и наработок лида, а дальше прошла систему вместе с аналитиками. После этого задачи приходили уже с разобранной постановкой.</p>
+      <p>Разработка шла по каскадной модели: этапы по техническому заданию, в конце каждого демо заказчику. Замечания с демо возвращались в макеты, и так согласовывался новый функционал.</p>
+    </div>
+  </section>
 
   <section id="solution" class="flex scroll-mt-24 flex-col gap-8">
-    <div class="flex flex-col gap-5 md:px-20">
-      <h2 class="text-section font-medium" data-reveal>{sectionTitle('solution')}</h2>
-      <div class="text-prose-sm [&>p+p]:mt-4" data-reveal>
-        {audience.map((item) => <p>{item}</p>)}
+    <div class="flex flex-col gap-6 md:px-20">
+      <h2 class={heading} data-reveal>{sectionTitle('solution')}</h2>
+
+      <div class="flex flex-col gap-5">
+        <h3 class="pl-1 text-subsection font-medium" data-reveal>1. Изменение пассажиропотока</h3>
+        <div class={prose} data-reveal>
+          <p>Проект в системе — это одно направление со своим набором прогнозных показателей. Эксперту нужно было проверять, что станет с выводами по направлению, если прогноз потока не сбудется.</p>
+          <p>Функционал приходил двумя этапами: сначала менять поток у одного проекта, следующим этапом — сразу у нескольких.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 text-prose">
+        <h4 class="font-medium" data-reveal>Один проект</h4>
+        <div class="[&>p+p]:mt-paragraph-sm md:[&>p+p]:mt-paragraph" data-reveal>
+          <p>Сделала так, чтобы прогноз подставлялся прямо в карточке проекта, без ухода на отдельный экран. После расчёта у каждого пересчитанного показателя рядом с новым значением осталось базовое и отклонение от него: без этой пары непонятно, много изменилось или мало. Разделы, где значения пересчитались, отметила индикатором точкой в навигации.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 text-prose">
+        <h4 class="font-medium" data-reveal>Несколько проектов</h4>
+        <div class="[&>p+p]:mt-paragraph-sm md:[&>p+p]:mt-paragraph" data-reveal>
+          <p>На следующем этапе тот же прогноз нужно было менять сразу по нескольким направлениям, чтобы сравнивать их между собой. Сколько направлений возьмут в сравнение, никто сказать не мог: может два, может сто два. Решение должно было держать любой объём.</p>
+          <p>Сделала дравер: весь список проектов в одном окне, поверх того раздела, где пользователь сейчас находится. Поверх — потому что поток тянет за собой показатели сразу в нескольких разделах. Отдельный экран означал бы ходить туда, менять, возвращаться и искать, что поменялось.</p>
+        </div>
       </div>
     </div>
-    <figure class="flex flex-col gap-5">
-      <div class="aspect-[700/393] rounded-card bg-surface" data-reveal></div>
-      <div class="aspect-[700/393] rounded-card bg-surface" data-reveal></div>
-      <figcaption data-reveal class="text-caption font-medium text-fg/40 md:px-20">
-        Система развивалась по частям, поэтому каждый новый раздел должен был встраиваться в уже сделанное. Число проектов заранее неизвестно и будет расти, интерфейс должен это выдерживать. Методики приходили от аналитиков, и не все детали в них были определены на момент проектирования.
-      </figcaption>
-    </figure>
-  </section>
 
-  {(['results', 'reflection'] as const).map((id) => (
-    <section id={id} class="flex scroll-mt-24 flex-col gap-5 md:px-20">
-      <h2 class="text-section font-medium" data-reveal>{sectionTitle(id)}</h2>
-      <div class="text-prose [&>p+p]:mt-4.25" data-reveal>
-        {audience.map((item) => <p>{item}</p>)}
+    <CaseFigure caption={iterationCaption} />
+
+    <div id="ranking" class="flex scroll-mt-24 flex-col gap-6 md:px-20">
+      <div class="flex flex-col gap-5">
+        <h3 class="pl-1 text-subsection font-medium" data-reveal>2. {sectionTitle('ranking')}</h3>
+        <p class="text-prose" data-reveal>Раздел переносит в интерфейс методику отбора проектов. Она двухэтапная: сначала направления просеивают по открытой статистике, потом прошедшие ранжируют по результатам полной расчётной модели.</p>
       </div>
-    </section>
-  ))}
+
+      <div class="flex flex-col gap-3 text-prose">
+        <h4 class="font-medium" data-reveal>Итерации</h4>
+        <div class="[&>p+p]:mt-paragraph-sm md:[&>p+p]:mt-paragraph" data-reveal>
+          <p>Итерации. Начинала с модалки поверх раздела, результат первого уровня выводила таблицей — по ней не читалось главное, какие проекты прошли отбор. Список с баллом это показывал.</p>
+          <p>Дальше отказалась и от самой модалки: состав первого уровня ещё не определён, и вкладываться в большое решение было рано. Предложила не трогать структуру экрана и добавить футер с этапами.</p>
+        </div>
+      </div>
+    </div>
+
+    <CaseFigure caption={iterationCaption} />
+
+    <p class="text-prose md:px-20" data-reveal>Два вопроса не стала закрывать в макетах: по какому правилу проекты отсекаются после первого уровня и что показывать, если два способа расчёта дают разный порядок. В методике ответов нет. Задачу признали неприоритетной и отложили вместе с вопросами.</p>
+  </section>
 </div>

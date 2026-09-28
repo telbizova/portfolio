@@ -1,0 +1,14 @@
+---
+// Картинка кейса с подписью. Пока в макете вместо скриншотов — пустые белые карточки.
+interface Props {
+  caption: string;
+  count?: number;
+}
+
+const { caption, count = 1 } = Astro.props;
+---
+
+<figure class="flex flex-col gap-5">
+  {Array.from({ length: count }).map(() => <div class="aspect-[700/393] rounded-card-sm bg-surface md:rounded-card" data-reveal />)}
+  <figcaption class="text-caption font-medium text-fg/40 md:px-20" data-reveal>{caption}</figcaption>
+</figure>

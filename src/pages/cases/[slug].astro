@@ -31,20 +31,16 @@ const { entry, next } = Astro.props;
 
   <main class="px-4">
     <article class="mx-auto flex max-w-page flex-col gap-10 pt-17">
-      <!-- TODO: даты и лид — заглушки из макета -->
-      <header class="flex flex-col items-center gap-4 text-center">
-        <h1 id="case-title" class="max-w-137 text-case-title font-normal" data-reveal>{entry.data.title}</h1>
-        <p class="text-meta font-medium text-fg/50" data-reveal style="--reveal-delay: 80ms">[апрель - сентябрь 2026]</p>
-        <p class="max-w-135 text-prose text-fg/50" data-reveal style="--reveal-delay: 160ms">
-          Аналитическая система для оценки и выбора проектов новых транспортных линий система для оценки и выбора проектов новых транспортных линий
-        </p>
+      <header class="flex flex-col items-center gap-5 text-center md:px-15">
+        <h1 id="case-title" class="text-hero-sm font-normal md:text-case-title" data-reveal>{entry.data.title}</h1>
+        <p class="text-prose text-fg/60" data-reveal style="--reveal-delay: 80ms">{entry.data.description}</p>
       </header>
 
       <CasePlaceholder />
     </article>
   </main>
 
-  <Footer />
+  <Footer class="pb-10" />
   <NextCaseBar href={`/cases/${next.id}`} />
-  <ScrollTopButton offset="case" />
+  <ScrollTopButton />
 </Base>
