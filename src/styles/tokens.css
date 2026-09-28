@@ -1,51 +1,58 @@
 /*
-  Значения сняты из макета Figma через Inspect (фреймы «Главная»,
-  «Главная-скролл»). Меняются только вслед за макетом.
+  Значения сняты из макета Figma через API (фреймы «Главная», «Главная-скролл»,
+  «Страница проекта», «Страница проекта - скролл»). Меняются только вслед за макетом.
 */
 :root {
   /* Цвет */
-  --bg: #F0F0F0;        /* фон страницы */
-  --surface: #FFFFFF;   /* карточки, подложка портрета */
-  --fg: #1E1E1E;        /* текст; полупрозрачные оттенки — через /40, /50, /80 */
-  --accent: #7C7C7C;    /* заливка кнопок */
-  --line: #CECECE;      /* разделитель в плашке */
-  --glass: #979797;     /* заливка плашки, используется на 20% */
-  --bar-stroke: #E2E2E2; /* обводка плашки «Следующий кейс», на 70% */
-  --wave: #E5484D;      /* рукописное подчёркивание ссылки в футере */
+  --bg: #F0F0F0;          /* фон страницы */
+  --surface: #FFFFFF;     /* карточки, подложка портрета */
+  --fg: #1E1E1E;          /* текст; оттенки — через /30, /40, /50, /60, /70, /80 */
+  --accent: #3A3A3A;      /* заливка кнопок */
+  --line: #CECECE;        /* разделитель в плашке */
+  --glass: #979797;       /* заливка плашки, на 20% */
+  --bar-stroke: #E2E2E2;  /* обводка плашек, на 70% */
+  --company: #4D55E4;     /* название компании над проектами */
+  --company-icon: #4B4FDC; /* иконка компании */
+  --muted: #484848;       /* даты проектов, на 60% */
+  --wave: #E5484D;        /* рукописное подчёркивание ссылки в футере */
 
   /* Типографика — Inter */
   --font-display: "Inter", system-ui, sans-serif;
   --font-text: "Inter", system-ui, sans-serif;
 
   /* Размер / интерлиньяж / трекинг по ролям */
-  --type-hero: 2rem;        --type-hero-leading: 2.375rem;  --type-hero-tracking: -0.04em;   /* 32/38 */
-  --type-lead: 1.125rem;    --type-lead-leading: 1.625rem;  --type-lead-tracking: -0.01em;   /* 18/26 */
-  --type-h2: 1.5rem;        --type-h2-leading: 1;           --type-h2-tracking: -0.02em;     /* 24 */
-  --type-title: 1.25rem;    --type-title-leading: 1;        --type-title-tracking: -0.02em;  /* 20 */
-  --type-body: 1.0625rem;   --type-body-leading: 1.5rem;    --type-body-tracking: -0.01em;   /* 17/24 */
-  --type-button: 1.0625rem; --type-button-leading: 1;       --type-button-tracking: -0.02em; /* 17, кнопки первого экрана */
-  --type-button-sm: 0.9375rem; --type-button-sm-leading: 1;  --type-button-sm-tracking: -0.02em; /* 15, кнопки в плашке и шапке кейса */
-  --type-tag: 0.75rem;      --type-tag-leading: 1;          --type-tag-tracking: -0.02em;    /* 12 */
-
-  --type-footer: 0.875rem;  --type-footer-leading: 1.375rem; --type-footer-tracking: -0.01em;  /* 14/22 */
-
+  /* Главная */
+  --type-hero: 2.25rem;      --type-hero-leading: 2.875rem;   --type-hero-tracking: -0.04em;   /* 36/46 */
+  --type-hero-sm: 1.75rem;   --type-hero-sm-leading: 2.25rem; --type-hero-sm-tracking: -0.04em; /* 28/36, заголовки первого экрана и кейса на телефоне */
+  --type-lead: 1.25rem;      --type-lead-leading: 2rem;       --type-lead-tracking: -0.01em;   /* 20/32 */
+  --type-meta: 0.9375rem;    --type-meta-leading: 1;          --type-meta-tracking: -0.02em;    /* 15, компания и даты */
+  --type-title: 1.5rem;      --type-title-leading: 1;         --type-title-tracking: -0.02em;  /* 24, название проекта */
+  --type-title-sm: 1.5rem;   --type-title-sm-leading: 1.875rem; --type-title-sm-tracking: -0.02em; /* 24/30, название на телефоне — в 2 строки */
+  --type-body: 1.0625rem;    --type-body-leading: 1.5rem;     --type-body-tracking: -0.01em;   /* 17/24, описание проекта */
+  --type-tag: 0.8125rem;     --type-tag-leading: 1;           --type-tag-tracking: -0.02em;    /* 13, категории */
+  /* Кнопки и навигация */
+  --type-button: 1.0625rem;  --type-button-leading: 1;        --type-button-tracking: -0.02em; /* 17, кнопки первого экрана */
+  --type-button-sm: 0.9375rem; --type-button-sm-leading: 1;   --type-button-sm-tracking: -0.02em; /* 15, плашки, шапка кейса */
+  --type-nav: 0.875rem;      --type-nav-leading: 1;           --type-nav-tracking: -0.02em;    /* 14, «Назад в портфолио» */
+  --type-footer: 0.875rem;   --type-footer-leading: 1.375rem; --type-footer-tracking: -0.01em; /* 14/22 */
   /* Страница кейса */
-  --type-case-title: 1.75rem; --type-case-title-leading: 1.75rem; --type-case-title-tracking: -0.03em; /* 28/28 */
-  --type-section: 1.5rem;   --type-section-leading: 1;      --type-section-tracking: -0.03em; /* 24 */
-  --type-prose: 1.0625rem;  --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
-  --type-prose-sm: 1rem;    --type-prose-sm-leading: 1.5rem; --type-prose-sm-tracking: -0.02em; /* 16/24 */
-  --type-meta: 0.875rem;    --type-meta-leading: 1rem;      --type-meta-tracking: -0.02em;   /* 14/16 */
-  --type-caption: 0.875rem; --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */
-  --type-nav: 0.875rem;     --type-nav-leading: 1;          --type-nav-tracking: -0.02em;    /* 14 */
-  --type-next: 1.0625rem;   --type-next-leading: 1;         --type-next-tracking: -0.02em;   /* 17 */
+  --type-case-title: 2rem;   --type-case-title-leading: 2.5rem; --type-case-title-tracking: -0.04em; /* 32/40 */
+  --type-section: 1.5rem;    --type-section-leading: 1;       --type-section-tracking: -0.03em; /* 24, заголовки разделов */
+  --type-subsection: 1.25rem; --type-subsection-leading: 1.75rem; --type-subsection-tracking: -0.02em; /* 20/28 */
+  --type-prose: 1.0625rem;   --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
+  --type-label: 0.875rem;    --type-label-leading: 0.875rem;  --type-label-tracking: -0.02em;  /* 14/14, подписи капсом */
+  --type-caption: 0.875rem;  --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */
 
-  /* Отступы — шаг 2px (в макете 6, 10, 14 и т.д.), в Tailwind: p-1.5 = 6px */
+  --paragraph: 1.0625rem;    /* отступ между абзацами, 17px */
+  --paragraph-sm: 0.75rem;   /* то же на телефоне, 12px — в узкой колонке 17 смотрится крупно */
+
+  /* Отступы — числовая шкала Tailwind с шагом 4px: p-1.5 = 6px, p-12.5 = 50px */
   --space: 0.25rem;
 
   /* Размеры */
   --container: 700px;   /* колонка контента */
-  --lead-width: 476px;  /* подзаголовок на первом экране */
-  --card-text: 396px;   /* текстовый блок широкой карточки */
+  --lead-width: 520px;  /* описание на первом экране */
+  --card-text: 443px;   /* текстовый блок карточки проекта */
   --avatar: 7.5rem;     /* портрет, 120px */
   --measure: 68ch;
 
@@ -62,11 +69,12 @@
   --reveal-shift: 12px;
 
   /* Скругления */
-  --radius: 28px;       /* карточки */
-  --radius-image: 10px; /* скриншоты в карточках */
-  --radius-bar: 16px;   /* плашка с кнопками */
-  --radius-bar-sm: 12px; /* плашка «Следующий кейс» */
-  --radius-square: 8px; /* квадратная кнопка «наверх» */
-  --radius-pill: 999px; /* кнопки, портрет */
-  --radius-hairline: 2px; /* штрихи индикатора прокрутки */
+  --radius: 28px;         /* карточки, картинки кейса */
+  --radius-sm: 20px;      /* то же на телефоне */
+  --radius-image: 10px;   /* скриншоты в карточках */
+  --radius-bar: 16px;     /* плашка с кнопками на главной */
+  --radius-button: 12px;  /* кнопки первого экрана */
+  --radius-square: 8px;   /* мелкие кнопки, «Наверх», «Следующий кейс» */
+  --radius-pill: 999px;   /* портрет */
+  --radius-hairline: 2px; /* штрихи индикатора разделов */
 }

@@ -3,8 +3,8 @@ import Arrow from './Arrow.astro';
 
 interface Props {
   /*
-    lg — кнопки первого экрана: высота 52, текст 17, стрелка 18.
-    sm — в плавающей плашке и шапке кейса: высота 36, текст 15, стрелка 16.
+    lg — кнопки первого экрана: 52px, скругление 12, текст 17, стрелка 18.
+    sm — в плавающей плашке и шапке кейса: 44px, скругление 8, текст 15, стрелка 16.
   */
   size?: 'lg' | 'sm';
   // В плавающей плашке между кнопками — вертикальный разделитель
@@ -31,13 +31,13 @@ const links = [
           target="_blank"
           rel="noopener"
           class:list={[
-            'group/link inline-flex items-center gap-1.5 rounded-pill bg-accent font-medium text-surface transition-[background-color,scale] duration-(--dur-micro) ease-(--ease-out) hover:bg-fg active:scale-97',
-            lg ? 'h-13 pr-4 pl-4.5 text-button' : 'h-9 px-3 text-button-sm',
+            'group/link inline-flex items-center gap-1.5 bg-accent font-medium text-surface transition-[background-color,scale] duration-(--dur-micro) ease-(--ease-out) hover:bg-fg active:scale-97',
+            lg ? 'h-13 rounded-button px-5 text-button' : 'h-11 rounded-square px-4 text-button-sm',
           ]}
         >
           <!-- Текст на 1px выше центра стрелки — оптическое выравнивание из макета -->
-          <span class={lg ? 'pb-0.5' : 'pb-px'}>{label}</span>
-          <Arrow size={lg ? 18 : 16} />
+          <span class="pb-0.5">{label}</span>
+          <Arrow size={lg ? 'lg' : 'md'} />
           <span class="sr-only">(откроется в новой вкладке)</span>
         </a>
       </li>

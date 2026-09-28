@@ -1,4 +1,10 @@
 ---
+interface Props {
+  // Отступ от футера до низа страницы по макету: 50px на главной, 40px в кейсе
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 const year = new Date().getFullYear();
 
 /*
@@ -21,8 +27,8 @@ const strokes = [
 ];
 ---
 
-<!-- Компонент «Footer» из макета: 40px от контента, 40px до низа страницы -->
-<footer id="site-footer" class="mt-10 px-4 text-center">
+<!-- Компонент «Footer» из макета: 40px от контента -->
+<footer id="site-footer" class:list={['mt-10 px-4 text-center', className]}>
   <p class="text-footer text-fg/50">
     © {year},{' '}
     <a

@@ -1,16 +1,19 @@
 ---
-// Стрелка «arrow-narrow-up-right» из макета: вектор в квадрате 16×16 (вектор 9×9)
-// или 18×18 (вектор 10.13×10.13, у крупных кнопок).
-// rotate — поворот по часовой: 45 → вправо, 225 → влево, 315 → вверх.
-// При наведении на ссылку-родителя с классом group/link стрелка сдвигается
-// на 2px по своему направлению.
+/*
+  Стрелка «arrow-narrow-up-right» из макета — один вектор в трёх размерах:
+  sm — 9px в квадрате 16 («Назад в портфолио»),
+  md — 10.67px в квадрате 16 (мелкие кнопки, плашки, «Наверх»),
+  lg — 12px в квадрате 18 (кнопки первого экрана).
+  rotate — поворот по часовой: 45 → вправо, 225 → влево, 315 → вверх.
+  При наведении на родителя с классом group/link сдвигается на 2px по направлению.
+*/
 interface Props {
   rotate?: 0 | 45 | 225 | 315;
-  size?: 16 | 18;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const { rotate = 0, size = 16 } = Astro.props;
-const vector = size === 18 ? 10.13 : 9;
+const { rotate = 0, size = 'md' } = Astro.props;
+const vector = { sm: 9, md: 10.67, lg: 12 }[size];
 
 const nudge = {
   0: 'group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5',
@@ -23,7 +26,7 @@ const nudge = {
 <span
   class:list={[
     'flex shrink-0 items-center justify-center transition-transform duration-(--dur-micro) ease-(--ease-out)',
-    size === 18 ? 'size-4.5' : 'size-4',
+    size === 'lg' ? 'size-4.5' : 'size-4',
     nudge,
   ]}
   aria-hidden="true"
