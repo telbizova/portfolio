@@ -14,6 +14,8 @@
   --company: #4D55E4;     /* название компании над проектами */
   --company-icon: #4B4FDC; /* иконка компании */
   --muted: #484848;       /* даты проектов, на 60% */
+  --note: #DF7224;        /* подложка плашки NDA, на 8% */
+  --note-icon: #D9732B;   /* иконка плашки NDA */
   --wave: #E5484D;        /* рукописное подчёркивание ссылки в футере */
 
   /* Типографика — Inter */
@@ -40,7 +42,7 @@
   --type-section: 1.5rem;    --type-section-leading: 1;       --type-section-tracking: -0.03em; /* 24, заголовки разделов */
   --type-subsection: 1.25rem; --type-subsection-leading: 1.75rem; --type-subsection-tracking: -0.02em; /* 20/28 */
   --type-prose: 1.0625rem;   --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
-  --type-label: 0.875rem;    --type-label-leading: 0.875rem;  --type-label-tracking: -0.02em;  /* 14/14, подписи капсом */
+  --type-label: 0.8125rem;   --type-label-leading: 0.875rem;  --type-label-tracking: -0.02em;  /* 13/14, подписи капсом */
   --type-caption: 0.875rem;  --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */
 
   --paragraph: 1.0625rem;    /* отступ между абзацами, 17px */
@@ -53,6 +55,7 @@
   --container: 700px;   /* колонка контента */
   --lead-width: 520px;  /* описание на первом экране */
   --card-text: 443px;   /* текстовый блок карточки проекта */
+  --note-width: 607px;  /* плашка NDA на странице кейса */
   --avatar: 7.5rem;     /* портрет, 120px */
   --measure: 68ch;
 

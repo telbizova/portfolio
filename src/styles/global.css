@@ -20,6 +20,8 @@
   --color-company-icon: var(--company-icon);
   --color-muted: var(--muted);
   --color-wave: var(--wave);
+  --color-note: var(--note);
+  --color-note-icon: var(--note-icon);
 
   --font-*: initial;
   --font-display: var(--font-display);
@@ -93,6 +95,7 @@
   --container-page: var(--container);
   --container-lead: var(--lead-width);
   --container-card-text: var(--card-text);
+  --container-note: var(--note-width);
   --container-measure: var(--measure);
 
   --radius-*: initial;
@@ -195,7 +198,8 @@
   поэтому без JS всё видно сразу. Скрипт — в layouts/Base.astro.
 */
 @layer components {
-  .js [data-reveal] {
+  .js [data-reveal],
+  .js .case-prose > * {
     opacity: 0;
     translate: 0 var(--reveal-shift);
     transition:
@@ -204,16 +208,217 @@
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  .js [data-reveal].is-visible {
+  .js [data-reveal].is-visible,
+  .js .case-prose > .is-visible {
     opacity: 1;
     translate: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .js [data-reveal] {
+    .js [data-reveal],
+    .js .case-prose > * {
       opacity: 1;
       translate: none;
       transition: none;
+    }
+  }
+}
+
+/*
+  Текст кейса из Markdown (src/content/cases/*.md). Правила — из фрейма
+  «Страница проекта»: колонка 700, текст с отступом 80 по бокам, картинки на всю
+  ширину. Отступы: между разделами 68, заголовок → текст 24 (всегда),
+  подзаголовок → текст 20,
+  между абзацами 17 (на телефоне 12), жирная строка-заголовок → свой текст 4,
+  до и после картинки 32, между пунктами списка 16.
+*/
+@layer components {
+  .case-prose {
+    font-size: var(--type-prose);
+    line-height: var(--type-prose-leading);
+    letter-spacing: var(--type-prose-tracking);
+  }
+
+  @media (min-width: 48rem) {
+    .case-prose > :not(figure) {
+      padding-inline: calc(var(--spacing) * 20);
+    }
+  }
+
+  .case-prose strong {
+    font-weight: 500;
+  }
+
+  /* Абзацы */
+  .case-prose > p + p {
+    margin-top: var(--paragraph-sm);
+  }
+
+  @media (min-width: 48rem) {
+    .case-prose > p + p {
+      margin-top: var(--paragraph);
+    }
+  }
+
+  /* Разделы */
+  .case-prose h2 {
+    font-size: var(--type-section);
+    line-height: var(--type-section-leading);
+    letter-spacing: var(--type-section-tracking);
+    font-weight: 400;
+    scroll-margin-top: calc(var(--spacing) * 24);
+  }
+
+  /* Между разделами — 68, сильнее правил «после списка» и «после картинки» */
+  .case-prose > h2:not(:first-child) {
+    margin-top: calc(var(--spacing) * 17);
+  }
+
+  .case-prose > h2 + * {
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  /* Подразделы «1. …» — новый блок, как отдельная карточка в макете */
+  .case-prose h3 {
+    font-size: var(--type-subsection);
+    line-height: var(--type-subsection-leading);
+    letter-spacing: var(--type-subsection-tracking);
+    font-weight: 400;
+    text-indent: calc(var(--spacing) * 1);
+  }
+
+  .case-prose > * + h3 {
+    margin-top: calc(var(--spacing) * 8);
+  }
+
+  .case-prose > h3 + * {
+    margin-top: calc(var(--spacing) * 5);
+  }
+
+  /* Жирная строка-заголовок («Один проект») и её текст */
+  .case-prose > .case-block-title {
+    font-weight: 500;
+  }
+
+  .case-prose > p + .case-block-title {
+    margin-top: calc(var(--spacing) * 5);
+  }
+
+  .case-prose > .case-block-title + * {
+    margin-top: calc(var(--spacing) * 1);
+  }
+
+  /* Списки с ромбиками: у пункта название жирным и описание со следующей строки */
+  .case-prose > p + ul,
+  .case-prose > p + ol {
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  .case-prose ul > li {
+    position: relative;
+    padding-left: calc(var(--spacing) * 6);
+  }
+
+  .case-prose ul > li::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--type-prose-leading) / 2 - 2.5px);
+    left: calc(var(--spacing) * 2 - 2.5px);
+    width: 5px;
+    height: 5px;
+    rotate: 45deg;
+    background: var(--fg);
+  }
+
+  .case-prose ul > li + li {
+    margin-top: calc(var(--spacing) * 4);
+  }
+
+  .case-prose li > strong:first-child,
+  .case-prose li > p > strong:first-child {
+    display: block;
+    margin-bottom: calc(var(--spacing) * 1);
+  }
+
+  .case-prose ol {
+    list-style: decimal;
+    padding-left: calc(var(--spacing) * 6);
+  }
+
+  @media (min-width: 48rem) {
+    .case-prose > ol {
+      padding-left: calc(var(--spacing) * 26);
+    }
+  }
+
+  .case-prose ol > li + li {
+    margin-top: var(--paragraph-sm);
+  }
+
+  @media (min-width: 48rem) {
+    .case-prose ol > li + li {
+      margin-top: var(--paragraph);
+    }
+  }
+
+  /* После списка — 24 */
+  .case-prose > ul + *,
+  .case-prose > ol + * {
+    margin-top: calc(var(--spacing) * 6);
+  }
+
+  /* Картинки: до и после 32, две подряд — через 20 */
+  .case-prose > figure,
+  .case-prose > figure + * {
+    margin-top: calc(var(--spacing) * 8);
+  }
+
+  .case-prose > figure + figure {
+    margin-top: calc(var(--spacing) * 5);
+  }
+}
+
+/* Картинка кейса: белая карточка 700×393, скриншот 533×300 по центру; подпись с отступом 80 */
+@layer components {
+  .case-figure {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 5);
+  }
+
+  .case-figure__frame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 700 / 393;
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+
+  @media (min-width: 48rem) {
+    .case-figure__frame {
+      border-radius: var(--radius);
+    }
+  }
+
+  .case-figure__frame img {
+    width: calc(533 / 700 * 100%);
+    height: auto;
+    border-radius: var(--radius-image);
+    outline: 4px solid color-mix(in oklab, var(--fg) 12%, transparent);
+  }
+
+  .case-figure figcaption {
+    font-size: var(--type-caption);
+    line-height: var(--type-caption-leading);
+    letter-spacing: var(--type-caption-tracking);
+    font-weight: 500;
+    color: color-mix(in oklab, var(--fg) 40%, transparent);
+  }
+
+  @media (min-width: 48rem) {
+    .case-figure figcaption {
+      padding-inline: calc(var(--spacing) * 20);
     }
   }
 }

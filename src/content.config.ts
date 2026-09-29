@@ -27,6 +27,18 @@ const cases = defineCollection({
           }),
         )
         .default([]),
+      // Страница кейса. Если about нет — кейс ещё без контента, показываем заглушку из макета
+      hero: image().optional(),
+      heroAlt: z.string().optional(),
+      about: z
+        .object({
+          role: z.string(),
+          period: z.string(),
+          team: z.string(),
+        })
+        .optional(),
+      // Плашка под «О проекте», например про NDA
+      note: z.string().optional(),
     }),
 });
 

@@ -1,11 +1,14 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import CaseHeader from '../../components/case/CaseHeader.astro';
 import CaseToc from '../../components/case/CaseToc.astro';
 import Footer from '../../components/Footer.astro';
 import ScrollTopButton from '../../components/ScrollTopButton.astro';
+import CaseAbout from '../../components/case/CaseAbout.astro';
+import CaseHero from '../../components/case/CaseHero.astro';
 import CasePlaceholder from '../../components/case/CasePlaceholder.astro';
+import { caseSections } from '../../components/case/sections';
 import NextCaseBar from '../../components/case/NextCaseBar.astro';
 
 export async function getStaticPaths() {
@@ -23,11 +26,20 @@ interface Props {
 }
 
 const { entry, next } = Astro.props;
+const { data } = entry;
+
+// Кейс с контентом: «О проекте» + разделы из заголовков второго уровня в тексте.
+// Кейс без контента: заглушка из макета со своим набором разделов
+const { Content, headings } = await render(entry);
+const hasContent = Boolean(data.about);
+const sections = hasContent
+  ? [{ id: 'about', title: 'О проекте' }, ...headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, title: h.text }))]
+  : caseSections;
 ---
 
 <Base title={`${entry.data.title} — Валентина Тельбизова`}>
   <CaseHeader />
-  <CaseToc />
+  <CaseToc sections={sections} />
 
   <main class="px-4">
     <article class="mx-auto flex max-w-page flex-col gap-10 pt-17">
@@ -36,7 +48,25 @@ const { entry, next } = Astro.props;
         <p class="text-prose text-fg/60" data-reveal style="--reveal-delay: 80ms">{entry.data.description}</p>
       </header>
 
-      <CasePlaceholder />
+      {hasContent ? (
+        <div class="flex flex-col gap-17">
+          <div class="flex flex-col gap-8">
+            {data.hero ? (
+              <CaseHero src={data.hero} alt={data.heroAlt ?? data.title} />
+            ) : (
+              <figure class="case-figure" data-reveal>
+                <div class="case-figure__frame" role="img" aria-label="Скриншот: обложка кейса" />
+              </figure>
+            )}
+            <CaseAbout about={data.about!} note={data.note} />
+          </div>
+          <div class="case-prose">
+            <Content />
+          </div>
+        </div>
+      ) : (
+        <CasePlaceholder />
+      )}
     </article>
   </main>
 
