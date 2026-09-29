@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
+import { tagLabel } from '../data/tags';
 
 interface Props {
   entry: CollectionEntry<'cases'>;
@@ -27,17 +28,18 @@ const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
   data-card-href={`/cases/${id}`}
   class="group/card relative flex cursor-pointer flex-col overflow-hidden rounded-card-sm bg-surface md:rounded-card outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg md:h-110"
 >
-  <!-- На телефоне у текста одна минимальная высота (2 строки названия + 4 строки описания), чтобы карточки были одной высоты -->
-  <div class="flex min-h-58 flex-col gap-5 px-5 pt-5 md:min-h-0 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:px-7 md:pt-7">
+  <!-- На телефоне у текста одна минимальная высота (до 3 строк названия и 4 строк описания), чтобы карточки были одной высоты -->
+  <div class="flex min-h-59 flex-col gap-5 px-5 pt-5 md:min-h-0 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:px-7 md:pt-7">
     <p class="flex flex-wrap items-center gap-2 text-tag font-semibold text-fg/30">
       {data.tags.map((tag, i) => (
         <>
           {i > 0 && <span class="size-1 rotate-45 bg-current" aria-hidden="true" />}
-          <span>{tag}</span>
+          <span>{tagLabel(tag)}</span>
         </>
       ))}
     </p>
-    <h3 class="text-title-sm font-normal md:text-title">
+    <!-- Интервал 30 вместо 100% из макета, чтобы два ряда не слипались; -3px сверху и снизу держат однострочное название на месте макета -->
+    <h3 class="text-title-sm font-normal md:-my-0.75">
       <a href={`/cases/${id}`} class="outline-none">{data.title}</a>
     </h3>
     <p class="text-body text-fg/60">{data.description}</p>
