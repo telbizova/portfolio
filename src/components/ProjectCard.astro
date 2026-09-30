@@ -20,8 +20,8 @@ const cover = { x: 255, y: 189, w: 536 };
 const place = ({ x, y, w }: { x: number; y: number; w: number }) =>
   `left:${(x / stage.width) * 100}%;top:${((y - stage.top) / stage.height) * 100}%;width:${(w / stage.width) * 100}%`;
 
-// По ховеру плашки «разъезжаются веером»: наклон усиливается на 3° в ту же сторону
-const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
+// По ховеру плашки «разъезжаются веером»: наклон усиливается на 4° в ту же сторону
+const fanOut = (deg: number) => deg + Math.sign(deg) * 4;
 ---
 
 <article
@@ -55,7 +55,7 @@ const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
       alt={data.coverAlt}
       widths={[640, 1072, 1600]}
       sizes="(min-width: 768px) 536px, 77vw"
-      class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12 transition-[translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-1.5"
+      class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12 transition-[translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-x-1.5 group-hover/card:-translate-y-2.5"
       style={place(cover)}
     />
     {data.layers.map((layer, i) => (
@@ -64,7 +64,7 @@ const fanOut = (deg: number) => deg + Math.sign(deg) * 3;
         alt=""
         widths={[220, 440]}
         sizes="(min-width: 768px) 220px, 31vw"
-        class="absolute h-auto max-w-none origin-top-left rotate-(--r) transition-[rotate,translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-2 group-hover/card:rotate-(--r-hover)"
+        class="absolute h-auto max-w-none origin-top-left rotate-(--r) transition-[rotate,translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-3 group-hover/card:rotate-(--r-hover)"
         style={`${place(layer)};--r:${layer.rotate}deg;--r-hover:${fanOut(layer.rotate)}deg;transition-delay:${i * 40}ms`}
       />
     ))}

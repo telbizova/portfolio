@@ -226,6 +226,32 @@
 }
 
 /*
+  Карточка проекта на главной появляется заметнее остальных блоков: поднимается
+  и дорастает до своего размера. Содержимое внутри при этом не анимируется,
+  картинки реагируют только на ховер (ProjectCard.astro).
+*/
+@layer components {
+  .js [data-reveal='card'] {
+    translate: 0 var(--card-shift);
+    scale: var(--card-scale);
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      translate var(--dur-card-in) var(--ease-out),
+      scale var(--dur-card-in) var(--ease-out);
+  }
+
+  .js [data-reveal='card'].is-visible {
+    scale: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal='card'] {
+      scale: none;
+    }
+  }
+}
+
+/*
   Текст кейса из Markdown (src/content/cases/*.md). Правила — из фрейма
   «Страница проекта»: колонка 700, текст с отступом 80 по бокам, картинки на всю
   ширину. Отступы: между разделами 68, заголовок → текст 24 (всегда),

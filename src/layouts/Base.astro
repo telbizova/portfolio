@@ -26,19 +26,28 @@ const { title, description } = Astro.props;
     <slot />
 
     <script>
-      // Показ блоков с data-reveal при первом появлении в экране
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          });
-        },
-        { rootMargin: '0px 0px -8% 0px' },
-      );
+      // Показ блоков с data-reveal при первом появлении в экране.
+      // Карточки проектов ждут, пока в экран войдёт заметная часть, — иначе появление не разглядеть.
+      const reveal = (rootMargin: string) => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            });
+          },
+          { rootMargin },
+        );
+        return observer;
+      };
 
-      document.querySelectorAll('[data-reveal], .case-prose > *').forEach((el) => observer.observe(el));
+      const blocks = reveal('0px 0px -8% 0px');
+      const cards = reveal('0px 0px -20% 0px');
+
+      document.querySelectorAll('[data-reveal], .case-prose > *').forEach((el) => {
+        (el.matches('[data-reveal="card"]') ? cards : blocks).observe(el);
+      });
     </script>
   </body>
 </html>
