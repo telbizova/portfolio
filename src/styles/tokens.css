@@ -39,8 +39,8 @@
   --type-footer: 0.875rem;   --type-footer-leading: 1.375rem; --type-footer-tracking: -0.01em; /* 14/22 */
   /* Страница кейса */
   --type-case-title: 2rem;   --type-case-title-leading: 2.5rem; --type-case-title-tracking: -0.04em; /* 32/40 */
-  --type-section: 1.5rem;    --type-section-leading: 1;       --type-section-tracking: -0.03em; /* 24, заголовки разделов */
-  --type-subsection: 1.25rem; --type-subsection-leading: 1.75rem; --type-subsection-tracking: -0.02em; /* 20/28 */
+  --type-section: 1.75rem;   --type-section-leading: 1;       --type-section-tracking: -0.03em; /* 28, заголовки разделов */
+  --type-subsection: 1.375rem; --type-subsection-leading: 1.75rem; --type-subsection-tracking: -0.03em; /* 22/28 */
   --type-prose: 1.0625rem;   --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
   --type-label: 0.8125rem;   --type-label-leading: 0.875rem;  --type-label-tracking: -0.02em;  /* 13/14, подписи капсом */
   --type-caption: 0.875rem;  --type-caption-leading: 1.375rem; --type-caption-tracking: -0.03em; /* 14/22 */

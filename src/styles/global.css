@@ -273,7 +273,7 @@
   }
 
   .case-prose strong {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   /* Абзацы */
@@ -302,37 +302,28 @@
   }
 
   .case-prose > h2 + * {
-    margin-top: calc(var(--spacing) * 6);
+    margin-top: calc(var(--spacing) * 8);
   }
 
-  /* Подразделы «1. …» — новый блок, как отдельная карточка в макете */
+  /* Подразделы — новый блок, как отдельная карточка в макете */
   .case-prose h3 {
     font-size: var(--type-subsection);
     line-height: var(--type-subsection-leading);
     letter-spacing: var(--type-subsection-tracking);
     font-weight: 400;
-    text-indent: calc(var(--spacing) * 1);
-  }
-
-  .case-prose > * + h3 {
-    margin-top: calc(var(--spacing) * 8);
   }
 
   .case-prose > h3 + * {
-    margin-top: calc(var(--spacing) * 5);
+    margin-top: calc(var(--spacing) * 6);
   }
 
   /* Жирная строка-заголовок («Один проект») и её текст */
-  .case-prose > .case-block-title {
-    font-weight: 500;
-  }
-
   .case-prose > p + .case-block-title {
-    margin-top: calc(var(--spacing) * 5);
+    margin-top: calc(var(--spacing) * 6);
   }
 
   .case-prose > .case-block-title + * {
-    margin-top: calc(var(--spacing) * 1);
+    margin-top: calc(var(--spacing) * 2);
   }
 
   /* Списки с ромбиками: у пункта название жирным и описание со следующей строки */
@@ -402,6 +393,15 @@
 
   .case-prose > figure + figure {
     margin-top: calc(var(--spacing) * 5);
+  }
+
+  /* Подраздел после текста, списка или картинки — 48, сразу под заголовком раздела — 32 */
+  .case-prose > * + h3 {
+    margin-top: calc(var(--spacing) * 12);
+  }
+
+  .case-prose > h2 + h3 {
+    margin-top: calc(var(--spacing) * 8);
   }
 }
 
