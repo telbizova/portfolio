@@ -141,7 +141,7 @@
 
 /*
   Ссылка с рукописным подчёркиванием: по ховеру под текстом прорисовывается
-  волнистая линия маркером (stroke-dashoffset 1 → 0), каждый раз новая.
+  рукописная линия маркером (stroke-dashoffset 1 → 0), каждый раз другой жест.
   Разметка и набор линий — в Footer.astro.
 */
 @layer components {
@@ -173,6 +173,7 @@
     stroke: currentColor;
     stroke-width: 8px;
     stroke-linecap: round;
+    stroke-linejoin: round;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
     opacity: 0;
