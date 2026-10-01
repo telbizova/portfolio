@@ -133,7 +133,7 @@ https://www.figma.com/design/y5mvpTdawivriA079VE9Xm/Untitled
 - **Отступы:** числовая шкала Tailwind с шагом 4px (`--space`), дробные шаги
   дают значения из макета: `1.5` = 6px, `12.5` = 50px, `17.5` = 70px.
   Между абзацами — `mt-paragraph` (17px).
-- **Размеры:** `--container` 700px, `--lead-width` 520px, `--card-text` 443px,
+- **Размеры:** `--container` 700px, `--lead-width` 520px, `--card-text` 510px,
   `--avatar` 120px.
 - **Скругления:** `--radius` 28px (карточки), `--radius-image` 10px
   (скриншоты), `--radius-bar` 16px (плашка на главной), `--radius-button` 12px

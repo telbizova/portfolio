@@ -37,8 +37,7 @@ const layers = Object.entries(coverFiles)
         </>
       ))}
     </p>
-    <!-- Интервал 30 вместо 100% из макета, чтобы два ряда не слипались; -3px сверху и снизу держат однострочное название на месте макета -->
-    <h3 class="text-title-sm font-normal md:-my-0.75">
+    <h3 class="text-title-sm font-normal">
       <a href={`/cases/${id}`} class="outline-none">{data.title}</a>
     </h3>
     <p class="text-body text-fg/60">{data.description}</p>

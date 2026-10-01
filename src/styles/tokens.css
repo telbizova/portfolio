@@ -29,7 +29,7 @@
   --type-lead: 1.25rem;      --type-lead-leading: 2rem;       --type-lead-tracking: -0.01em;   /* 20/32 */
   --type-meta: 0.9375rem;    --type-meta-leading: 1;          --type-meta-tracking: -0.02em;    /* 15, компания и даты */
   --type-title: 1.5rem;      --type-title-leading: 1;         --type-title-tracking: -0.02em;  /* 24, название проекта */
-  --type-title-sm: 1.5rem;   --type-title-sm-leading: 1.875rem; --type-title-sm-tracking: -0.02em; /* 24/30, название на телефоне — в 2 строки */
+  --type-title-sm: 1.5rem;   --type-title-sm-leading: 1.2;    --type-title-sm-tracking: -0.02em; /* 24/120%, название проекта в карточке */
   --type-body: 1.0625rem;    --type-body-leading: 1.5rem;     --type-body-tracking: -0.01em;   /* 17/24, описание проекта */
   --type-tag: 0.8125rem;     --type-tag-leading: 1;           --type-tag-tracking: -0.02em;    /* 13, категории */
   /* Кнопки и навигация */
@@ -54,7 +54,7 @@
   /* Размеры */
   --container: 700px;   /* колонка контента */
   --lead-width: 520px;  /* описание на первом экране */
-  --card-text: 443px;   /* текстовый блок карточки проекта */
+  --card-text: 510px;   /* текстовый блок карточки проекта */
   --note-width: 607px;  /* плашка NDA на странице кейса */
   --avatar: 7.5rem;     /* портрет, 120px */
   --measure: 68ch;
