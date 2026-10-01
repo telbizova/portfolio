@@ -2,7 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 
-// Первая картинка кейса: белая карточка 700×393, внутри по центру скриншот 533×300
+// Первая картинка кейса: готовая карточка 700×393 (белая подложка и скругления уже в файле)
 interface Props {
   src: ImageMetadata;
   alt: string;
@@ -12,7 +12,5 @@ const { src, alt } = Astro.props;
 ---
 
 <figure class="case-figure" data-reveal>
-  <div class="case-figure__frame">
-    <Image src={src} alt={alt} widths={[533, 1066, 1600]} sizes="(min-width: 768px) 533px, 76vw" />
-  </div>
+  <Image src={src} alt={alt} widths={[700, 1400, 2100]} sizes="(min-width: 768px) 700px, calc(100vw - 32px)" />
 </figure>

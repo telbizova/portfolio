@@ -431,12 +431,22 @@
   }
 }
 
-/* Картинка кейса: белая карточка 700×393, скриншот 533×300 по центру; подпись с отступом 80 */
+/*
+  Картинка кейса. Файлы из кейса — готовые карточки 16:9 (подложка, скриншот
+  и скругления уже в картинке), они встают на всю ширину колонки.
+  .case-figure__frame — пустая рамка той же формы, пока скриншота нет.
+  Подпись с отступом 80.
+*/
 @layer components {
   .case-figure {
     display: flex;
     flex-direction: column;
     gap: calc(var(--spacing) * 5);
+  }
+
+  .case-figure > img {
+    width: 100%;
+    height: auto;
   }
 
   .case-figure__frame {
@@ -452,13 +462,6 @@
     .case-figure__frame {
       border-radius: var(--radius);
     }
-  }
-
-  .case-figure__frame img {
-    width: calc(533 / 700 * 100%);
-    height: auto;
-    border-radius: var(--radius-image);
-    outline: 4px solid color-mix(in oklab, var(--fg) 12%, transparent);
   }
 
   .case-figure figcaption {
