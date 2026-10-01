@@ -27,8 +27,7 @@ const layers = Object.entries(coverFiles)
   data-card-href={`/cases/${id}`}
   class="group/card relative flex cursor-pointer flex-col overflow-hidden rounded-card-sm bg-surface md:rounded-card outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg md:h-110"
 >
-  <!-- На телефоне у текста одна минимальная высота (до 3 строк названия и 4 строк описания), чтобы карточки были одной высоты -->
-  <div class="flex min-h-59 flex-col gap-5 px-5 pt-5 md:min-h-0 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:px-7 md:pt-7">
+  <div class="flex flex-col gap-5 px-5 pt-5 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:px-7 md:pt-7">
     <p class="flex flex-wrap items-center gap-2 text-tag font-semibold text-fg/30">
       {data.tags.map((tag, i) => (
         <>
@@ -44,13 +43,14 @@ const layers = Object.entries(coverFiles)
   </div>
 
   <!-- Обложка из слоёв 672×282, прижата к правому и нижнему краю (как Image в макете); по ховеру слои разъезжаются каскадом, смещения — --cover-shift-* в tokens.css -->
-  <div class="card-cover pointer-events-none relative mt-6 ml-5 shrink-0 md:absolute md:right-0 md:bottom-0 md:left-7 md:m-0" aria-hidden="true">
+  <!-- На телефоне обложка крупнее карточки и обрезается правым краем, высота карточки — по тексту -->
+  <div class="card-cover pointer-events-none relative mt-4 ml-5 w-[150%] shrink-0 md:absolute md:w-auto md:right-0 md:bottom-0 md:left-7 md:m-0" aria-hidden="true">
     {layers.map((layer, i) => (
       <Image
         src={layer}
         alt=""
         widths={[672, 1344]}
-        sizes="(min-width: 768px) 672px, calc(100vw - 52px)"
+        sizes="(min-width: 768px) 672px, 150vw"
         class:list={['card-cover__layer', i > 0 && 'absolute inset-0']}
         style={`--i:${i}`}
       />
