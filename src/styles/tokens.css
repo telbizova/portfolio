@@ -74,6 +74,14 @@
   --card-shift: 3rem;        /* сдвиг карточки при появлении */
   --card-scale: 0.96;        /* и её масштаб */
 
+  /* Обложка карточки по ховеру: сдвиг каждого слоя (x y) и задержка между слоями */
+  --cover-shift-bg: -4px -4px;   /* фон */
+  --cover-shift-1: -10px -10px;  /* cover-card-1 */
+  --cover-shift-2: 10px -12px;   /* cover-card-2 */
+  --cover-shift-3: -6px -16px;   /* cover-card-3 */
+  --cover-shift-4: 12px -8px;    /* cover-card-4 */
+  --cover-stagger: 60ms;
+
   /* Скругления */
   --radius: 28px;         /* карточки, картинки кейса */
   --radius-sm: 20px;      /* то же на телефоне */

@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import { tagLabel } from '../data/tags';
 
@@ -10,18 +11,16 @@ interface Props {
 const { id, data } = Astro.props.entry;
 
 /*
-  Геометрия из макета (карточка 700×440). Картинки лежат в «сцене» от
-  y=180 до низа карточки; координаты слоёв переводятся в проценты сцены,
-  чтобы коллаж масштабировался на узких экранах и совпадал с макетом на десктопе.
+  Обложка карточки — слои из папки кейса: cover-bg.png (фон) и cover-card-1.png,
+  cover-card-2.png… поверх него. Все слои одного размера с прозрачностью и уже
+  расставлены, поэтому просто кладутся друг на друга в порядке номеров.
 */
-const stage = { top: 180, width: 700, height: 260 };
-const cover = { x: 255, y: 189, w: 536 };
-
-const place = ({ x, y, w }: { x: number; y: number; w: number }) =>
-  `left:${(x / stage.width) * 100}%;top:${((y - stage.top) / stage.height) * 100}%;width:${(w / stage.width) * 100}%`;
-
-// По ховеру плашки «разъезжаются веером»: наклон усиливается на 4° в ту же сторону
-const fanOut = (deg: number) => deg + Math.sign(deg) * 4;
+const coverFiles = import.meta.glob<{ default: ImageMetadata }>('/src/content/cases/*/cover-*.png', { eager: true });
+const layerOrder = (path: string) => (path.endsWith('/cover-bg.png') ? 0 : Number(path.match(/cover-card-(\d+)\.png$/)?.[1] ?? 99));
+const layers = Object.entries(coverFiles)
+  .filter(([path]) => path.startsWith(`/src/content/cases/${id}/`))
+  .sort(([a], [b]) => layerOrder(a) - layerOrder(b))
+  .map(([, file]) => file.default);
 ---
 
 <article
@@ -45,27 +44,16 @@ const fanOut = (deg: number) => deg + Math.sign(deg) * 4;
     <p class="text-body text-fg/60">{data.description}</p>
   </div>
 
-  <!-- Коллаж обрезается правым и нижним краем карточки -->
-  <div
-    class="relative mt-6 shrink-0 md:absolute md:inset-x-0 md:top-45 md:bottom-0 md:mt-0"
-    style={`aspect-ratio:${stage.width}/${stage.height}`}
-  >
-    <Image
-      src={data.cover}
-      alt={data.coverAlt}
-      widths={[640, 1072, 1600]}
-      sizes="(min-width: 768px) 536px, 77vw"
-      class="absolute h-auto max-w-none rounded-image outline-4 outline-fg/12 transition-[translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-x-1.5 group-hover/card:-translate-y-2.5"
-      style={place(cover)}
-    />
-    {data.layers.map((layer, i) => (
+  <!-- Обложка из слоёв 672×282, прижата к правому и нижнему краю (как Image в макете); по ховеру слои разъезжаются каскадом, смещения — --cover-shift-* в tokens.css -->
+  <div class="card-cover pointer-events-none relative mt-6 ml-5 shrink-0 md:absolute md:right-0 md:bottom-0 md:left-7 md:m-0" aria-hidden="true">
+    {layers.map((layer, i) => (
       <Image
-        src={layer.src}
+        src={layer}
         alt=""
-        widths={[220, 440]}
-        sizes="(min-width: 768px) 220px, 31vw"
-        class="absolute h-auto max-w-none origin-top-left rotate-(--r) transition-[rotate,translate] duration-(--dur-card) ease-(--ease-spring) group-hover/card:-translate-y-3 group-hover/card:rotate-(--r-hover)"
-        style={`${place(layer)};--r:${layer.rotate}deg;--r-hover:${fanOut(layer.rotate)}deg;transition-delay:${i * 40}ms`}
+        widths={[672, 1344]}
+        sizes="(min-width: 768px) 672px, calc(100vw - 52px)"
+        class:list={['card-cover__layer', i > 0 && 'absolute inset-0']}
+        style={`--i:${i}`}
       />
     ))}
   </div>

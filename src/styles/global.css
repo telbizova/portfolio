@@ -226,6 +226,32 @@
 }
 
 /*
+  Обложка карточки на главной: слои лежат друг на друге, по ховеру на карточку
+  каждый выезжает на свой --cover-shift-* (tokens.css) с задержкой --cover-stagger
+  после предыдущего — движение идёт каскадом от фона к верхнему слою.
+*/
+@layer components {
+  .card-cover__layer {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: none;
+    transition: translate var(--dur-card) var(--ease-spring);
+    transition-delay: calc(var(--i, 0) * var(--cover-stagger));
+  }
+
+  .card-cover__layer:nth-child(1) { --cover-shift: var(--cover-shift-bg); }
+  .card-cover__layer:nth-child(2) { --cover-shift: var(--cover-shift-1); }
+  .card-cover__layer:nth-child(3) { --cover-shift: var(--cover-shift-2); }
+  .card-cover__layer:nth-child(4) { --cover-shift: var(--cover-shift-3); }
+  .card-cover__layer:nth-child(5) { --cover-shift: var(--cover-shift-4); }
+
+  .group\/card:hover .card-cover__layer {
+    translate: var(--cover-shift, 0 0);
+  }
+}
+
+/*
   Карточка проекта на главной появляется заметнее остальных блоков: поднимается
   и дорастает до своего размера. Содержимое внутри при этом не анимируется,
   картинки реагируют только на ховер (ProjectCard.astro).
