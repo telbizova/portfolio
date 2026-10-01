@@ -14,9 +14,9 @@ interface Props {
 const { size = 'lg', divider = false } = Astro.props;
 const lg = size === 'lg';
 
-// TODO: положить обезличенное резюме в public/cv.pdf
+// Резюме лежит в public/cv/, ссылки открываются в новой вкладке
 const links = [
-  { href: '/cv.pdf', label: 'CV' },
+  { href: '/cv/telbizova-cv.pdf', label: 'CV' },
   { href: 'https://t.me/telbizova', label: 'Telegram' },
 ];
 ---
