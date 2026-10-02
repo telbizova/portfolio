@@ -5,6 +5,8 @@ tags: ["B2E", "Аналитика"]
 order: 1
 nda: true
 company: root-code
+coverFocus: 25.6
+coverTop: 8.5
 # Страница кейса
 hero: ./transport-model/intro.png
 heroAlt: "Карточка проекта Москва — Могилёв с картой направления и прогнозными показателями"

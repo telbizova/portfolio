@@ -35,22 +35,23 @@ const hasContent = Boolean(data.about);
 const sections = hasContent
   ? [{ id: 'about', title: 'О проекте' }, ...headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, title: h.text }))]
   : caseSections;
+import { noWidow, typograf } from '../../lib/typograf.mjs';
 ---
 
-<Base title={`${entry.data.title} — Валентина Тельбизова`}>
+<Base title={`${entry.data.title} — Валентина Тельбизова`} description={entry.data.description}>
   <CaseHeader />
   <CaseToc sections={sections} />
 
   <main class="px-4">
-    <article class="mx-auto flex max-w-page flex-col gap-10 pt-17">
+    <article class="mx-auto flex max-w-page flex-col gap-8 pt-12 md:gap-10 md:pt-17">
       <header class="flex flex-col items-center gap-5 text-center md:px-15">
-        <h1 id="case-title" class="text-hero-sm font-normal md:text-case-title" data-reveal>{entry.data.title}</h1>
-        <p class="text-prose text-fg/60" data-reveal style="--reveal-delay: 80ms">{entry.data.description}</p>
+        <h1 id="case-title" class="text-case-title-sm font-normal text-balance md:text-case-title" data-reveal>{typograf(entry.data.title)}</h1>
+        <p class="text-body-sm text-fg/60 md:text-prose" data-reveal style="--reveal-delay: 80ms">{noWidow(typograf(entry.data.description))}</p>
       </header>
 
       {hasContent ? (
         <div class="flex flex-col gap-17">
-          <div class="flex flex-col gap-8">
+          <div class="flex flex-col gap-12 md:gap-8">
             {data.hero ? (
               <CaseHero src={data.hero} alt={data.heroAlt ?? data.title} />
             ) : (
@@ -70,7 +71,7 @@ const sections = hasContent
     </article>
   </main>
 
-  <Footer class="pb-10" />
+  <Footer class="pb-8 md:pb-10" />
   <NextCaseBar href={`/cases/${next.id}`} />
   <ScrollTopButton />
 </Base>

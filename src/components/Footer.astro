@@ -1,6 +1,6 @@
 ---
 interface Props {
-  // Отступ от футера до низа страницы по макету: 50px на главной, 40px в кейсе
+  // Отступ от футера до низа страницы по макету: 50px на главной, 40px в кейсе; на телефоне 32
   class?: string;
 }
 
@@ -46,7 +46,7 @@ const strokes = [
 ---
 
 <!-- Компонент «Footer» из макета: 40px от контента -->
-<footer id="site-footer" class:list={['mt-10 px-4 text-center', className]}>
+<footer id="site-footer" class:list={['mt-8 px-4 text-center md:mt-10', className]}>
   <p class="text-footer text-fg/50">
     © {year},{' '}
     <a

@@ -55,11 +55,19 @@ const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site
       };
 
       const blocks = reveal('0px 0px -8% 0px');
-      const cards = reveal('0px 0px -20% 0px');
+      const cards = reveal('0px 0px -10% 0px');
 
       document.querySelectorAll('[data-reveal], .case-prose > *').forEach((el) => {
+        // Всё, что видно при открытии (хотя бы краем), появляется сразу, без ожидания прокрутки;
+        // стартовый сдвиг вниз, с которым блок ждёт появления, не учитываем
+        const shift = parseFloat(getComputedStyle(el).translate.split(' ')[1]) || 0;
+        if (el.getBoundingClientRect().top - shift < window.innerHeight) {
+          requestAnimationFrame(() => el.classList.add('is-visible'));
+          return;
+        }
         (el.matches('[data-reveal="card"]') ? cards : blocks).observe(el);
       });
+
     </script>
   </body>
 </html>

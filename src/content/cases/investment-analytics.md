@@ -5,6 +5,8 @@ tags: ["B2E", "Аналитика"]
 order: 2
 nda: true
 company: root-code
+coverFocus: 30.5
+coverTop: 9.9
 # Страница кейса
 hero: ./investment-analytics/intro.png
 heroAlt: "Витрина инвестиций с кольцевыми диаграммами плана и факта"

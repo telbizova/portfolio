@@ -5,6 +5,9 @@ tags: ["B2E", "Внутренний-инструмент"]
 order: 5
 nda: false
 company: black-mesa
+coverFocus: 27.4
+coverTop: 9.9
+coverBottom: [1]
 # Страница кейса
 hero: ./bearings-search/intro.png
 heroAlt: "Поиск аналогов с разбором маркировки и характеристиками"

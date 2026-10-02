@@ -5,6 +5,9 @@ tags: ["B2B", "CRM"]
 order: 4
 nda: false
 company: black-mesa
+coverFocus: 29.8
+coverTop: 9.9
+coverBottom: [1]
 # Страница кейса
 hero: ./grain-forum/intro.png
 heroAlt: "Раздел заявок в панели управления форумом"

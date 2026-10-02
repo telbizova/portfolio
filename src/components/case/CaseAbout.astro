@@ -1,4 +1,6 @@
 ---
+import { typograf } from '../../lib/typograf.mjs';
+
 // Блок «О проекте» и плашка-примечание (NDA) из фрейма «Страница проекта»
 interface Props {
   about: { role: string; period: string; team: string };
@@ -11,33 +13,33 @@ const label = 'text-label font-semibold text-fg/40 uppercase';
 
 <div class="flex flex-col items-center gap-8">
   <section id="about" class="flex w-full scroll-mt-24 flex-col gap-8 md:px-20">
-    <h2 class="text-section font-normal" data-reveal>О проекте</h2>
+    <h2 class="text-section-sm font-normal md:text-section" data-reveal>О проекте</h2>
     <dl class="grid gap-6 text-prose" data-reveal>
       <div class="grid gap-6 sm:grid-cols-2">
         <div class="flex flex-col gap-3">
           <dt class={label}>Моя роль</dt>
-          <dd>{about.role}</dd>
+          <dd>{typograf(about.role)}</dd>
         </div>
         <div class="flex flex-col gap-3">
           <dt class={label}>Таймфрейм</dt>
-          <dd>{about.period}</dd>
+          <dd>{typograf(about.period)}</dd>
         </div>
       </div>
       <div class="flex flex-col gap-3">
         <dt class={label}>Команда</dt>
-        <dd>{about.team}</dd>
+        <dd>{typograf(about.team)}</dd>
       </div>
     </dl>
   </section>
 
   {note && (
-    <p class="flex w-full max-w-note items-center gap-3 rounded-button bg-note/8 px-5 py-4 text-caption md:px-8 md:py-6 font-medium text-fg/50" data-reveal>
-      <svg class="size-5 shrink-0 text-note-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
+    <p class="flex w-full max-w-note items-start gap-2.5 rounded-button bg-note/8 p-4 text-caption md:items-center md:gap-3 md:px-8 md:py-6 font-medium text-fg/50" data-reveal>
+      <svg class="mt-px size-5 shrink-0 text-note-icon md:mt-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" aria-hidden="true">
         <path d="M3.125 3.125H16.875V16.875H3.125V3.125Z" />
         <path d="M10 9.1665V13.5415" />
         <path d="M9.375 6.4585H10.625" />
       </svg>
-      {note}
+      {typograf(note)}
     </p>
   )}
 </div>

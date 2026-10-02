@@ -24,13 +24,15 @@
 
   /* Размер / интерлиньяж / трекинг по ролям */
   /* Главная */
-  --type-hero: 2.25rem;      --type-hero-leading: 2.875rem;   --type-hero-tracking: -0.04em;   /* 36/46 */
-  --type-hero-sm: 1.75rem;   --type-hero-sm-leading: 2.25rem; --type-hero-sm-tracking: -0.04em; /* 28/36, заголовки первого экрана и кейса на телефоне */
+  --type-hero: 2.25rem;      --type-hero-leading: 3rem;       --type-hero-tracking: -0.04em;   /* 36/48 */
+  --type-hero-xs: min(calc((100vw - 2rem) * 0.0715), 1.75rem); --type-hero-xs-leading: 1.3; --type-hero-xs-tracking: -0.04em; /* первый экран на телефоне: 4 строки, кегль по ширине — самая длинная строка во всю ширину (≈24.5 на 375, 28 на 430) */
   --type-lead: 1.25rem;      --type-lead-leading: 2rem;       --type-lead-tracking: -0.01em;   /* 20/32 */
   --type-meta: 0.9375rem;    --type-meta-leading: 1;          --type-meta-tracking: -0.02em;    /* 15, компания и даты */
   --type-title: 1.5rem;      --type-title-leading: 1;         --type-title-tracking: -0.02em;  /* 24, название проекта */
   --type-title-sm: 1.5rem;   --type-title-sm-leading: 1.2;    --type-title-sm-tracking: -0.02em; /* 24/120%, название проекта в карточке */
+  --type-title-xs: 1.375rem; --type-title-xs-leading: 1.75rem; --type-title-xs-tracking: -0.02em; /* 22/28, название в карточке на телефоне */
   --type-body: 1.0625rem;    --type-body-leading: 1.5rem;     --type-body-tracking: -0.01em;   /* 17/24, описание проекта */
+  --type-body-sm: 1rem;      --type-body-sm-leading: 1.5rem;  --type-body-sm-tracking: -0.01em; /* 16/24, описание в карточке на телефоне */
   --type-tag: 0.8125rem;     --type-tag-leading: 1;           --type-tag-tracking: -0.02em;    /* 13, категории */
   /* Кнопки и навигация */
   --type-button: 1.0625rem;  --type-button-leading: 1;        --type-button-tracking: -0.02em; /* 17, кнопки первого экрана */
@@ -39,7 +41,9 @@
   --type-footer: 0.875rem;   --type-footer-leading: 1.375rem; --type-footer-tracking: -0.01em; /* 14/22 */
   /* Страница кейса */
   --type-case-title: 2rem;   --type-case-title-leading: 2.5rem; --type-case-title-tracking: -0.04em; /* 32/40 */
+  --type-case-title-sm: 1.75rem; --type-case-title-sm-leading: 2.25rem; --type-case-title-sm-tracking: -0.04em; /* 28/36, название кейса на телефоне — крупнее заголовков разделов */
   --type-section: 1.75rem;   --type-section-leading: 1;       --type-section-tracking: -0.03em; /* 28, заголовки разделов */
+  --type-section-sm: 1.5rem; --type-section-sm-leading: 1.875rem; --type-section-sm-tracking: -0.03em; /* 24/30, заголовки разделов на телефоне — в две строки не слипаются */
   --type-subsection: 1.375rem; --type-subsection-leading: 1.75rem; --type-subsection-tracking: -0.03em; /* 22/28 */
   --type-prose: 1.0625rem;   --type-prose-leading: 1.6875rem; --type-prose-tracking: -0.02em;  /* 17/27 */
   --type-label: 0.8125rem;   --type-label-leading: 0.875rem;  --type-label-tracking: -0.02em;  /* 13/14, подписи капсом */
@@ -53,7 +57,7 @@
 
   /* Размеры */
   --container: 700px;   /* колонка контента */
-  --lead-width: 520px;  /* описание на первом экране */
+  --lead-width: 570px;  /* описание на первом экране */
   --card-text: 510px;   /* текстовый блок карточки проекта */
   --note-width: 607px;  /* плашка NDA на странице кейса */
   --avatar: 7.5rem;     /* портрет, 120px */
@@ -75,12 +79,17 @@
   --card-scale: 0.96;        /* и её масштаб */
 
   /* Обложка карточки по ховеру: сдвиг каждого слоя (x y) и задержка между слоями */
-  --cover-shift-bg: -4px -4px;   /* фон */
+  --cover-shift-bg: 0 0;         /* фон — не сдвигается, растёт на --cover-lift */
   --cover-shift-1: -10px -10px;  /* cover-card-1 */
   --cover-shift-2: 10px -12px;   /* cover-card-2 */
   --cover-shift-3: -6px -16px;   /* cover-card-3 */
   --cover-shift-4: 12px -8px;    /* cover-card-4 */
+  /* Слои, срезанные нижним краем (фон, модалки — coverBottom в кейсе), по ховеру
+     не сдвигаются, а увеличиваются от нижнего края — так срез не открывается */
+  --cover-lift: 1.03;
   --cover-stagger: 60ms;
+  --cover-mobile-width: 538px;   /* обложка на телефоне: 80% десктопной (672) */
+  --cover-gap: 16px;             /* телефон: от описания до первой картинки обложки */
 
   /* Скругления */
   --radius: 28px;         /* карточки, картинки кейса */

@@ -5,6 +5,8 @@ tags: ["B2E", "Дизайн-система"]
 order: 3
 nda: true
 company: root-code
+coverFocus: 27.4
+coverTop: 3.5
 # Страница кейса
 hero: ./scenario-modeling/intro.png
 heroAlt: "Модуль с настройками расчёта и графиками"
