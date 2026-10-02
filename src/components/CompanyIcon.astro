@@ -1,10 +1,16 @@
 ---
-// Иконка компании из макета («company-icon»): здание, 24×24, обводка 1.5
+// Иконка компании из макета («company-icon»): здание, 24×24, обводка 1.5.
+// Заливка и окна видны только по ховеру на ссылку компании (.company-link в global.css)
 ---
 
-<svg class="size-6 shrink-0 text-company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true">
+<svg class="company-icon size-6 shrink-0 text-company-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true">
+  <rect class="company-icon__body" x="4.75" y="3.75" width="9" height="16.5" stroke="none" />
+  <rect class="company-icon__annex" x="13.75" y="8.75" width="5.5" height="11.5" stroke="none" />
   <path d="M2.75 20.25H21.25" />
   <path d="M4.75 20.25V3.75H13.75V20.25" />
   <path d="M13.75 8.75H19.25V20.25" />
-  <path d="M7.75 7.75H10.75M7.75 11.25H10.75M7.75 14.75H10.75" />
+  <path class="company-icon__lines" d="M7.75 7.75H10.75M7.75 11.25H10.75M7.75 14.75H10.75" />
+  <rect class="company-icon__window" x="7" y="6.75" width="4.5" height="2" rx="0.5" stroke="none" style="--i:0" />
+  <rect class="company-icon__window" x="7" y="10.25" width="4.5" height="2" rx="0.5" stroke="none" style="--i:1" />
+  <rect class="company-icon__window" x="7" y="13.75" width="4.5" height="2" rx="0.5" stroke="none" style="--i:2" />
 </svg>

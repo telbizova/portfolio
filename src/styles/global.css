@@ -252,6 +252,58 @@
 }
 
 /*
+  Ссылка на компанию над проектами: по ховеру здание в иконке заливается
+  фирменным синим, а окна по очереди загораются белым, как вечером.
+*/
+@layer components {
+  .company-icon__body,
+  .company-icon__annex {
+    fill: currentColor;
+    opacity: 0;
+    transition: opacity var(--dur-ui) var(--ease-out);
+  }
+
+  .company-icon__lines {
+    transition: stroke var(--dur-micro) var(--ease-out);
+  }
+
+  .company-icon__window {
+    fill: var(--surface);
+    opacity: 0;
+    transition: opacity var(--dur-micro) var(--ease-out);
+    transition-delay: calc(80ms * var(--i, 0));
+  }
+
+  /* Фокус с клавиатуры — везде, ховер — только при мыши; на телефоне эффекта нет (см. .link-draw) */
+  .company-link:focus-visible :is(.company-icon__body, .company-icon__window) {
+    opacity: 1;
+  }
+
+  .company-link:focus-visible .company-icon__annex {
+    opacity: 0.35;
+  }
+
+  .company-link:focus-visible .company-icon__lines {
+    stroke: transparent;
+  }
+
+
+  @media (hover: hover) {
+    .company-link:hover :is(.company-icon__body, .company-icon__window) {
+      opacity: 1;
+    }
+
+    .company-link:hover .company-icon__annex {
+      opacity: 0.35;
+    }
+
+    .company-link:hover .company-icon__lines {
+      stroke: transparent;
+    }
+  }
+}
+
+/*
   Карточка проекта на главной появляется заметнее остальных блоков: поднимается
   и дорастает до своего размера. Содержимое внутри при этом не анимируется,
   картинки реагируют только на ховер (ProjectCard.astro).

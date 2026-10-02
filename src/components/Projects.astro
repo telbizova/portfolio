@@ -15,10 +15,22 @@ const groups = companies
 <div id="projects" class="flex scroll-mt-10 flex-col gap-10">
   {groups.map(({ company, cases }) => (
     <section aria-labelledby={`company-${company.id}`} class="flex flex-col gap-5">
-      <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 px-5 md:gap-x-3 md:px-7" data-reveal>
+      <div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 px-6 md:gap-x-3 md:px-7" data-reveal>
         <h2 id={`company-${company.id}`} class="flex items-center gap-2 text-meta font-medium text-company">
-          <CompanyIcon />
-          {company.name}
+          {company.url ? (
+            <a href={company.url} target="_blank" rel="noopener" class="company-link group/link flex items-center gap-2 outline-offset-4">
+              <CompanyIcon />
+              <span class="underline decoration-transparent decoration-1 underline-offset-4 transition-[text-decoration-color] duration-(--dur-micro) ease-(--ease-out) group-hover/link:decoration-current group-focus-visible/link:decoration-current">
+                {company.name}
+              </span>
+              <span class="sr-only">(откроется в новой вкладке)</span>
+            </a>
+          ) : (
+            <>
+              <CompanyIcon />
+              {company.name}
+            </>
+          )}
         </h2>
         <p class="text-meta text-muted/60">
           <span class="md:hidden">{company.periodShort}</span>
