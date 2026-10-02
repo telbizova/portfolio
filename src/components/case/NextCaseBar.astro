@@ -12,7 +12,7 @@ const { href } = Astro.props;
 <a
   id="next-case"
   href={href}
-  class="group/link fixed bottom-8 left-1/2 z-10 flex h-11 -translate-x-1/2 items-center gap-1.5 rounded-square border border-bar-stroke/70 bg-surface/60 px-4 text-button-sm font-medium whitespace-nowrap backdrop-blur-[8px] transition-[opacity,translate] duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*8)] not-data-[shown]:opacity-0"
+  class="group/link fixed bottom-8 left-1/2 z-10 flex h-11 -translate-x-1/2 items-center gap-1.5 rounded-square border border-bar-stroke/70 bg-surface/60 px-4 text-button-sm font-medium whitespace-nowrap backdrop-blur-[8px] transition-[opacity,translate,scale] active:scale-97 duration-(--dur-slide) ease-(--ease-spring) not-data-[shown]:pointer-events-none not-data-[shown]:translate-y-[calc(100%+var(--spacing)*8)] not-data-[shown]:opacity-0"
   inert
 >
   <span class="pb-0.5">Следующий кейс</span>

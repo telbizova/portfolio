@@ -187,15 +187,30 @@
       opacity var(--dur-micro);
   }
 
-  .link-draw:hover,
+  /*
+    Ховер — только там, где есть мышь: на телефоне :hover «залипает» после тапа
+    и висит при возврате на страницу, а на касание анимация не успевает до
+    открытия ссылки — поэтому на тач-экранах эффекта нет. С клавиатуры — по
+    :focus-visible.
+  */
   .link-draw:focus-visible {
     color: var(--fg);
   }
 
-  .link-draw:hover .link-draw__svg path,
   .link-draw:focus-visible .link-draw__svg path {
     stroke-dashoffset: 0;
     opacity: 0.85;
+  }
+
+  @media (hover: hover) {
+    .link-draw:hover {
+      color: var(--fg);
+    }
+
+    .link-draw:hover .link-draw__svg path {
+      stroke-dashoffset: 0;
+      opacity: 0.85;
+    }
   }
 }
 

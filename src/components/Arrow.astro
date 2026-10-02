@@ -5,7 +5,8 @@
   md — 10.67px в квадрате 16 (мелкие кнопки, плашки, «Наверх»),
   lg — 12px в квадрате 18 (кнопки первого экрана).
   rotate — поворот по часовой: 45 → вправо, 225 → влево, 315 → вверх.
-  При наведении на родителя с классом group/link сдвигается на 2px по направлению.
+  При наведении на родителя с классом group/link (и при нажатии на тач-экране)
+  сдвигается на 2px по направлению.
 */
 interface Props {
   rotate?: 0 | 45 | 225 | 315;
@@ -16,10 +17,10 @@ const { rotate = 0, size = 'md' } = Astro.props;
 const vector = { sm: 9, md: 10.67, lg: 12 }[size];
 
 const nudge = {
-  0: 'group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5',
-  45: 'group-hover/link:translate-x-0.5',
-  225: 'group-hover/link:-translate-x-0.5',
-  315: 'group-hover/link:-translate-y-0.5',
+  0: 'group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:translate-x-0.5 group-active/link:-translate-y-0.5',
+  45: 'group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5',
+  225: 'group-hover/link:-translate-x-0.5 group-active/link:-translate-x-0.5',
+  315: 'group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5',
 }[rotate];
 ---
 
@@ -31,7 +32,8 @@ const nudge = {
   ]}
   aria-hidden="true"
 >
-  <svg width={vector} height={vector} viewBox="0 0 9 9" fill="currentColor" style={rotate ? `rotate:${rotate}deg` : undefined}>
+  <!-- overflow: visible — Safari на iPhone округляет дробный размер svg (10.67) и срезает край стрелки -->
+  <svg width={vector} height={vector} viewBox="0 0 9 9" fill="currentColor" overflow="visible" class="overflow-visible" style={rotate ? `rotate:${rotate}deg` : undefined}>
     <path d="M9 7.6755L7.52742 7.68373L7.52742 2.54205L1.06947 9L0 7.93053L6.45795 1.47258L1.32038 1.47669L1.3245 0L9 6.90411e-07V7.6755Z" />
   </svg>
 </span>

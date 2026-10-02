@@ -31,12 +31,15 @@ const links = [
           target="_blank"
           rel="noopener"
           class:list={[
-            'group/link inline-flex items-center gap-1.5 bg-accent font-medium text-surface transition-[background-color,scale] duration-(--dur-micro) ease-(--ease-out) hover:bg-fg active:scale-97',
+            'group/link inline-flex items-center gap-1.5 bg-accent font-medium text-surface transition-[background-color,scale] duration-(--dur-micro) ease-(--ease-out) hover:bg-fg active:scale-97 active:bg-fg',
             lg ? 'h-13 rounded-button px-5 text-button' : 'h-11 rounded-square px-4 text-button-sm',
           ]}
         >
-          <!-- Текст на 1px выше центра стрелки — оптическое выравнивание из макета -->
-          <span class="pb-0.5">{label}</span>
+          <!--
+            Текст чуть выше центра, как в макете (сверено по контурам букв в Figma):
+            в кнопке 52 верх букв 19 / линия букв 20.3 от низа, в кнопке 44 — 15.4 / 17.4
+          -->
+          <span class:list={[lg ? 'pb-px' : 'pb-0.5']}>{label}</span>
           <Arrow size={lg ? 'lg' : 'md'} />
           <span class="sr-only">(откроется в новой вкладке)</span>
         </a>

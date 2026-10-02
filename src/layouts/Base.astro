@@ -35,6 +35,9 @@ const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site
     <slot />
 
     <script>
+      // Без этого Safari на iPhone не показывает :active — состояние нажатия у ссылок
+      document.addEventListener('touchstart', () => {}, { passive: true });
+
       // Показ блоков с data-reveal при первом появлении в экране.
       // Карточки проектов ждут, пока в экран войдёт заметная часть, — иначе появление не разглядеть.
       const reveal = (rootMargin: string) => {
