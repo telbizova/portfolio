@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { caseBlockTitles, caseFigures } from './src/lib/case-markdown.mjs';
 
 export default defineConfig({
+  site: 'https://telbizova.vercel.app',
   devToolbar: { enabled: false },
   markdown: {
     processor: satteri({ hastPlugins: [caseBlockTitles, caseFigures] }),

@@ -7,6 +7,9 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+// Адрес страницы на сайте (site в astro.config.mjs) — для поисковиков и превью ссылки в мессенджерах
+// без слеша в конце, как в ссылках на сайте: /cases/grain-forum
+const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site);
 ---
 
 <!doctype html>
@@ -16,6 +19,12 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
