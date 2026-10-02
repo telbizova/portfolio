@@ -13,6 +13,8 @@
   превращаются в <figure class="case-figure"> с <figcaption>. Саму картинку
   дальше оптимизирует Astro: webp, width/height, ленивая загрузка.
 */
+import { typograf } from './typograf.mjs';
+
 const meaningful = (node) => node.children.filter((child) => !(child.type === 'text' && !child.value.trim()));
 const isElement = (node, tagName) => node?.type === 'element' && node.tagName === tagName;
 
@@ -45,5 +47,14 @@ export const caseFigures = {
 
       ctx.replaceNode(node, { type: 'element', tagName: 'figure', properties: { className: ['case-figure'] }, children });
     },
+  },
+};
+
+// Неразрывные пробелы после коротких слов и перед тире во всём тексте кейса
+export const caseTypograf = {
+  name: 'case-typograf',
+  text(node, ctx) {
+    const value = typograf(node.value);
+    if (value !== node.value) ctx.replaceNode(node, { type: 'text', value });
   },
 };

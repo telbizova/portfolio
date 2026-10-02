@@ -110,6 +110,11 @@
 }
 
 @layer base {
+  /* Без одинокого слова в последней строке абзаца */
+  p, li, dd, figcaption {
+    text-wrap: pretty;
+  }
+
   body {
     background: var(--bg);
     color: var(--fg);
