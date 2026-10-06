@@ -1,4 +1,6 @@
 ---
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import '../styles/global.css';
 
 interface Props {
@@ -33,6 +35,10 @@ const canonical = new URL(Astro.url.pathname.replace(/(.)\/$/, '$1'), Astro.site
   </head>
   <body>
     <slot />
+
+    <!-- Vercel: посещения (Web Analytics) и скорость загрузки (Speed Insights); работают только на Vercel -->
+    <Analytics />
+    <SpeedInsights />
 
     <script>
       // Без этого Safari на iPhone не показывает :active — состояние нажатия у ссылок
