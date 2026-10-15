@@ -67,7 +67,12 @@ import { noWidow, typograf } from '../lib/typograf.mjs';
     // чтобы плашка его не перекрывала
     let pastAnchor = false;
     let nearFooter = false;
+    // Раскрытие пункта внизу главной меняет высоту страницы, и футер уходит из вида —
+    // плашка выехала бы без прокрутки. Поэтому после contacts:hold она держит
+    // текущее состояние, пока человек сам не прокрутит страницу
+    let held = false;
     const render = () => {
+      if (held) return;
       const show = pastAnchor && !nearFooter;
       floating.toggleAttribute('data-shown', show);
       floating.inert = !show;
@@ -84,5 +89,16 @@ import { noWidow, typograf } from '../lib/typograf.mjs';
         render();
       }).observe(footer);
     }
+
+    document.addEventListener('contacts:hold', () => (held = true));
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!held) return;
+        held = false;
+        render();
+      },
+      { passive: true },
+    );
   }
 </script>
