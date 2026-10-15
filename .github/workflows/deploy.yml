@@ -1,0 +1,46 @@
+# Публикация сайта на GitHub Pages: https://telbizova.github.io/portfolio/
+# Запускается при каждом пуше в main (и вручную из вкладки Actions).
+# Основной сайт по-прежнему публикует Vercel — этот workflow его не трогает.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Одновременно идёт только один деплой; начатый не прерываем
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Ставит зависимости, собирает Astro и готовит артефакт для Pages
+      - name: Build
+        uses: withastro/action@v3
+        with:
+          node-version: 22
+        env:
+          # На Pages сайт живёт в подпапке — ссылки собираются с этим префиксом (см. src/lib/url.ts)
+          BASE_PATH: /portfolio
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

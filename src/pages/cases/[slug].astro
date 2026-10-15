@@ -36,6 +36,7 @@ const sections = hasContent
   ? [{ id: 'about', title: 'О проекте' }, ...headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, title: h.text }))]
   : caseSections;
 import { noWidow, typograf } from '../../lib/typograf.mjs';
+import { url } from '../../lib/url';
 ---
 
 <Base title={`${entry.data.title} — Валентина Тельбизова`} description={entry.data.description}>
@@ -72,6 +73,6 @@ import { noWidow, typograf } from '../../lib/typograf.mjs';
   </main>
 
   <Footer class="pb-8 md:pb-10" />
-  <NextCaseBar href={`/cases/${next.id}`} />
+  <NextCaseBar href={url(`/cases/${next.id}`)} />
   <ScrollTopButton />
 </Base>

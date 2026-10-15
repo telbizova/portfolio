@@ -6,6 +6,8 @@ import { caseBlockTitles, caseFigures, caseTypograf } from './src/lib/case-markd
 
 export default defineConfig({
   site: 'https://telbizova.vercel.app',
+  // На GitHub Pages сайт живёт в подпапке /portfolio — её передаёт workflow через BASE_PATH
+  base: process.env.BASE_PATH || '/',
   devToolbar: { enabled: false },
   markdown: {
     processor: satteri({ hastPlugins: [caseBlockTitles, caseFigures, caseTypograf] }),

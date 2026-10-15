@@ -10,7 +10,10 @@
 - **Astro** (статика, без SSR)
 - **Tailwind CSS v4** — только через токены, см. ниже
 - **Markdown/MDX** для кейсов — один файл на кейс в `src/content/cases/`
-- Деплой: GitHub → Vercel
+- Деплой: GitHub → Vercel (основной сайт, telbizova.vercel.app) и копия на
+  GitHub Pages (telbizova.github.io/portfolio, `.github/workflows/deploy.yml`).
+  На Pages сайт в подпапке, поэтому ссылки внутри сайта — только через `url()`
+  из `src/lib/url.ts` (`url('/cases/…')`, `url('/cv/…')`), не строкой от корня
 
 **Никаких новых зависимостей без явного разрешения.** Если кажется, что нужна
 библиотека — сначала спроси и объясни, почему без неё нельзя. Анимации, слайдеры,
@@ -248,5 +251,3 @@ https://www.figma.com/design/y5mvpTdawivriA079VE9Xm/Untitled
 
 ## TODO
 
-- [ ] Публикация: GitHub → Vercel, выбрать домен и прописать его в `site`
-      в `astro.config.mjs`

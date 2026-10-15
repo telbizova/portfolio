@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import { tagLabel } from '../data/tags';
 import { noWidow, typograf } from '../lib/typograf.mjs';
+import { url } from '../lib/url';
 
 interface Props {
   entry: CollectionEntry<'cases'>;
@@ -25,7 +26,7 @@ const layers = Object.entries(coverFiles)
 ---
 
 <article
-  data-card-href={`/cases/${id}`}
+  data-card-href={url(`/cases/${id}`)}
   class="group/card relative flex cursor-pointer flex-col overflow-hidden rounded-card-sm bg-surface md:rounded-card outline-offset-4 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-fg md:h-110"
 >
   <div class="flex flex-col gap-3 px-6 pt-6 md:max-w-[calc(var(--card-text)+var(--spacing)*14)] md:gap-5 md:px-7 md:pt-7">
@@ -38,7 +39,7 @@ const layers = Object.entries(coverFiles)
       ))}
     </p>
     <h3 class="text-title-xs font-normal text-balance md:text-title-sm">
-      <a href={`/cases/${id}`} class="outline-none">{typograf(data.title)}</a>
+      <a href={url(`/cases/${id}`)} class="outline-none">{typograf(data.title)}</a>
     </h3>
     <p class="text-body-sm text-fg/60 md:text-body">{noWidow(typograf(data.description))}</p>
   </div>
