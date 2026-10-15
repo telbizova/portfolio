@@ -1,0 +1,107 @@
+---
+import { otherProjects } from '../data/other-projects';
+import { noWidow, typograf } from '../lib/typograf.mjs';
+
+/*
+  «Что ещё делала» — по макету (Figma, «Главная» → Projects → Project Card 1397:1178):
+  белая карточка как у кейсов, без картинок и ссылок. Проекты свёрнуты: название,
+  период и кнопка «+» (раскрытый — «×»); описание — по нажатию (нативный <details>:
+  без JS тоже раскрывается, скрипт только сглаживает высоту).
+  При раскрытии пункта шлём событие contacts:hold — плашка с кнопками (Hero.astro)
+  не меняет состояние до следующей прокрутки: иначе раскрытый пункт отодвигает
+  футер и плашка выезжает сама по себе.
+*/
+---
+
+<section
+  id="other-projects-block"
+  aria-labelledby="other-projects"
+  class="mt-10 rounded-card-sm bg-surface p-6 md:rounded-card md:p-7"
+  data-reveal="card"
+>
+  <h2 id="other-projects" class="text-title-xs font-normal md:text-title-sm">{otherProjects.title}</h2>
+
+  <ul class="mt-6 flex flex-col gap-5 md:mt-7">
+    {otherProjects.projects.map((project) => (
+      <li class="border-fg/10 not-last:border-b not-last:pb-5">
+        <details class="group" data-accordion>
+          <!--
+            Название и период слева, кнопка справа: на десктопе — на высоту названия
+            с периодом (как в макете), на телефоне — по центру одного названия. На телефоне
+            кнопка 36 и зазор 12: от 393px все названия в две строки (на 375 самое
+            длинное — в три: «для корпоративных документов» не влезает в строку). Если название в одну строку (data-single, ставит скрипт),
+            кнопка встаёт по центру названия с датой, как на десктопе: иначе она выше строки
+            и раздвигает её, а дата отъезжает вниз
+          -->
+          <summary class="group/row grid cursor-pointer list-none grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 md:gap-x-5 md:gap-y-1 outline-offset-4 [&::-webkit-details-marker]:hidden">
+            <h3 class="self-start text-body-sm font-semibold text-balance md:text-prose">{typograf(project.name)}</h3>
+            <!-- Период «2024 — 2025»: годы Semi Bold, тире обычным начертанием, как в макете -->
+            <span class="text-tag font-semibold text-fg/30">
+              {project.period.split(' — ').map((year, i) => (
+                <>
+                  {i > 0 && <span class="font-normal">{'\u00A0— '}</span>}
+                  {year}
+                </>
+              ))}
+            </span>
+            <span class="col-start-2 row-start-1 flex size-9 items-center self-center group-data-single/row:row-end-3 md:row-end-3 justify-center rounded-square border border-fg/10 text-fg/50 transition-[border-color,color] duration-(--dur-micro) ease-(--ease-out) group-hover/row:border-fg/30 group-hover/row:text-fg group-active/row:border-fg/30 group-active/row:text-fg md:size-11" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="size-3.5 transition-[rotate] duration-(--dur-ui) ease-(--ease-out) group-data-open:rotate-45 md:size-4">
+                <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2.2" />
+              </svg>
+            </span>
+          </summary>
+          <p class="pt-3 text-body-sm md:pt-4 md:pr-16 md:text-prose" data-accordion-body>{noWidow(typograf(project.description.replace(/\.$/, '')))}</p>
+        </details>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<script>
+  // Плавное раскрытие: анимируем высоту <details> от строки с названием до полной.
+  // data-open ставится сразу, чтобы «+» поворачивался вместе с началом движения
+  const root = getComputedStyle(document.documentElement);
+  const duration = parseFloat(root.getPropertyValue('--dur-ui')) || 400;
+  const easing = root.getPropertyValue('--ease-out').trim() || 'ease-out';
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.querySelectorAll<HTMLDetailsElement>('details[data-accordion]').forEach((details) => {
+    const summary = details.querySelector('summary')!;
+    const body = details.querySelector<HTMLElement>('[data-accordion-body]')!;
+    let animation: Animation | undefined;
+    let fade: Animation | undefined;
+
+    // Однострочное название: кнопка по центру названия с датой (см. разметку)
+    const title = summary.querySelector('h3')!;
+    new ResizeObserver(() => {
+      const line = parseFloat(getComputedStyle(title).lineHeight);
+      summary.toggleAttribute('data-single', title.offsetHeight < line * 1.5);
+    }).observe(title);
+
+    details.addEventListener('toggle', () => details.toggleAttribute('data-open', details.open));
+
+    summary.addEventListener('click', (event) => {
+      document.dispatchEvent(new Event('contacts:hold'));
+      if (reduceMotion.matches) return;
+      event.preventDefault();
+
+      const opening = !details.hasAttribute('data-open');
+      const from = details.offsetHeight;
+      animation?.cancel();
+      fade?.cancel();
+      details.toggleAttribute('data-open', opening);
+      if (opening) details.open = true;
+      const to = summary.offsetHeight + (opening ? body.offsetHeight : 0);
+
+      // Обрезаем только на время анимации: в покое кнопка на телефоне чуть выходит за строку
+      details.style.overflow = 'hidden';
+      animation = details.animate({ height: [`${from}px`, `${to}px`] }, { duration, easing });
+      fade = body.animate({ opacity: opening ? [0, 1] : [1, 0] }, { duration, easing, fill: 'forwards' });
+      animation.onfinish = () => {
+        if (!opening) details.open = false;
+        details.style.overflow = '';
+        animation = undefined;
+      };
+    });
+  });
+</script>
